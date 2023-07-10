@@ -15,6 +15,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "presentation", "presentatio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Furnituremarket.Web", "Furnituremarket.Web\Furnituremarket.Web.csproj", "{2D140F70-6689-415F-A23B-C505778A311C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "service", "service", "{496F71EC-0F15-4972-81FC-B944D8C470B4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Furnituremarket.Service", "Furnituremarket.Service\Furnituremarket.Service.csproj", "{37CC95E3-CA48-40FC-9456-7BD1025D4D8C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,10 @@ Global
 		{2D140F70-6689-415F-A23B-C505778A311C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D140F70-6689-415F-A23B-C505778A311C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D140F70-6689-415F-A23B-C505778A311C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37CC95E3-CA48-40FC-9456-7BD1025D4D8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37CC95E3-CA48-40FC-9456-7BD1025D4D8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37CC95E3-CA48-40FC-9456-7BD1025D4D8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37CC95E3-CA48-40FC-9456-7BD1025D4D8C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -41,6 +49,7 @@ Global
 		{9CF176DD-5C91-4A0A-B6A2-BD12873CC81E} = {A4D4C60F-6A01-419E-9B90-857998D22153}
 		{9278F86B-39FD-4898-A570-CCD3F13F2E70} = {DDC1C1DD-DA8F-43B7-BDBF-C464BB64C751}
 		{2D140F70-6689-415F-A23B-C505778A311C} = {6B3F30FA-F357-4942-91D2-5B942D9E46B4}
+		{37CC95E3-CA48-40FC-9456-7BD1025D4D8C} = {496F71EC-0F15-4972-81FC-B944D8C470B4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6621C63D-8A37-4458-9019-3ED622A726C9}

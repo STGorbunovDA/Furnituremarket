@@ -1,13 +1,11 @@
+using Furnituremarket.DAL;
+using Furnituremarket.DAL.Interfaces;
+using Furnituremarket.DAL.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Furnituremarket.Web
 {
@@ -24,6 +22,11 @@ namespace Furnituremarket.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            string connecntion = Configuration.GetConnectionString("DefaultConnection");
+            services.Add(new ServiceDescriptor(typeof(ConnectionDataBase), new ConnectionDataBase(connecntion)));
+
+            services.AddScoped<IFurnitureRepository, FurnitureRepository>();
+            //services.AddScoped<IFurnitureService, FurnitureService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
