@@ -36,6 +36,7 @@ namespace Furnituremarket.Web.Controllers
         }
 
 
+
         [HttpPost]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Save(FurnitureViewModel model)
