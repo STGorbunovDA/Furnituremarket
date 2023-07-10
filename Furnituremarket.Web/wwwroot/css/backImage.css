@@ -1,0 +1,5 @@
+﻿.backgroundImage {
+    background-image: url("https://www.spektr-meb.ru/img/10.jpg");
+    background-size: cover;
+    background-attachment: scroll;
+}

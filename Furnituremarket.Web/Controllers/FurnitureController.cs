@@ -17,6 +17,25 @@ namespace Furnituremarket.Web.Controllers
             _furnitureService = furnitureService;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAllFurniture()
+        {
+            var response = await _furnitureService.GetAllFurniture();
+            if (response.CodeStatus == Domain.Enum.StatusCode.OK)
+                return View(response.Data.ToList());
+            return RedirectToAction("Error");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetFurnitureById(int id)
+        {
+            var response = await _furnitureService.GetFurnitureById(id);
+            if (response.CodeStatus == Domain.Enum.StatusCode.OK)
+                return View(response.Data);
+            return RedirectToAction("Error");
+        }
+
+
         [HttpPost]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Save(FurnitureViewModel model)
@@ -67,22 +86,8 @@ namespace Furnituremarket.Web.Controllers
             return RedirectToAction("Error");
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetFurnitureById(int id)
-        {
-            var response = await _furnitureService.GetFurnitureById(id);
-            if (response.CodeStatus == Domain.Enum.StatusCode.OK)
-                return View(response.Data);
-            return RedirectToAction("Error");
-        }
+        
 
-        [HttpGet]
-        public async Task<IActionResult> GetAllFurniture()
-        {
-            var response = await _furnitureService.GetAllFurniture();
-            if (response.CodeStatus == Domain.Enum.StatusCode.OK)
-                return View(response.Data.ToList());
-            return RedirectToAction("Error");
-        }
+        
     }
 }
