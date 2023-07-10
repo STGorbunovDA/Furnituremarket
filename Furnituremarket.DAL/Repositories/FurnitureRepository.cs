@@ -1,7 +1,6 @@
 ﻿using Furnituremarket.DAL.Interfaces;
 using Furnituremarket.Domain.Model;
 using MySql.Data.MySqlClient;
-using static Furnituremarket.DAL.ConnectionDataBase;
 using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
@@ -16,9 +15,9 @@ namespace Furnituremarket.DAL.Repositories
             try
             {
                 using (MySqlCommand command = new MySqlCommand("CreateFurniture",
-                ConnDataBase.GetInstance.GetConnection()))
+                ConnectionDataBase.GetInstance.GetConnection()))
                 {
-                    ConnDataBase.GetInstance.OpenConnection();
+                    ConnectionDataBase.GetInstance.OpenConnection();
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue($"nameFurniture", entity.Name);
                     command.Parameters.AddWithValue($"descriptionFurniture", entity.Description);
@@ -49,7 +48,7 @@ namespace Furnituremarket.DAL.Repositories
             }
             finally
             {
-                ConnDataBase.GetInstance.CloseConnection();
+                ConnectionDataBase.GetInstance.CloseConnection();
             }
         }
 
@@ -60,9 +59,9 @@ namespace Furnituremarket.DAL.Repositories
             try
             {
                 using (MySqlCommand command = new MySqlCommand("GetFurnitureFull",
-                ConnDataBase.GetInstance.GetConnection()))
+                ConnectionDataBase.GetInstance.GetConnection()))
                 {
-                    ConnDataBase.GetInstance.OpenConnection();
+                    ConnectionDataBase.GetInstance.OpenConnection();
                     command.CommandType = CommandType.StoredProcedure;
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
@@ -98,7 +97,7 @@ namespace Furnituremarket.DAL.Repositories
             }
             finally
             {
-                ConnDataBase.GetInstance.CloseConnection();
+                ConnectionDataBase.GetInstance.CloseConnection();
             }
         }
 
@@ -107,9 +106,9 @@ namespace Furnituremarket.DAL.Repositories
             try
             {
                 using (MySqlCommand command = new MySqlCommand("UpdateFurniture",
-                ConnDataBase.GetInstance.GetConnection()))
+                ConnectionDataBase.GetInstance.GetConnection()))
                 {
-                    ConnDataBase.GetInstance.OpenConnection();
+                    ConnectionDataBase.GetInstance.OpenConnection();
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue($"nameFurniture", entity.Name);
                     command.Parameters.AddWithValue($"descriptionFurniture", entity.Description);
@@ -141,7 +140,7 @@ namespace Furnituremarket.DAL.Repositories
             }
             finally
             {
-                ConnDataBase.GetInstance.CloseConnection();
+                ConnectionDataBase.GetInstance.CloseConnection();
             }
         }
 
@@ -150,9 +149,9 @@ namespace Furnituremarket.DAL.Repositories
             try
             {
                 using (MySqlCommand command = new MySqlCommand("DeleteFurnitureId",
-                ConnDataBase.GetInstance.GetConnection()))
+                ConnectionDataBase.GetInstance.GetConnection()))
                 {
-                    ConnDataBase.GetInstance.OpenConnection();
+                    ConnectionDataBase.GetInstance.OpenConnection();
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue($"idFurniture", entity.Id);
                     if (command.ExecuteNonQuery() == 1)
@@ -180,7 +179,7 @@ namespace Furnituremarket.DAL.Repositories
             }
             finally
             {
-                ConnDataBase.GetInstance.CloseConnection();
+                ConnectionDataBase.GetInstance.CloseConnection();
             }
         }
 
@@ -191,9 +190,9 @@ namespace Furnituremarket.DAL.Repositories
             try
             {
                 using (MySqlCommand command = new MySqlCommand("GetFurnitureName",
-                ConnDataBase.GetInstance.GetConnection()))
+                ConnectionDataBase.GetInstance.GetConnection()))
                 {
-                    ConnDataBase.GetInstance.OpenConnection();
+                    ConnectionDataBase.GetInstance.OpenConnection();
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue($"nameFurniture", name);
                     using (MySqlDataReader reader = command.ExecuteReader())
@@ -229,7 +228,7 @@ namespace Furnituremarket.DAL.Repositories
             }
             finally
             {
-                ConnDataBase.GetInstance.CloseConnection();
+                ConnectionDataBase.GetInstance.CloseConnection();
             }
         }
 
@@ -240,9 +239,9 @@ namespace Furnituremarket.DAL.Repositories
             try
             {
                 using (MySqlCommand command = new MySqlCommand("GetFurnitureId",
-                ConnDataBase.GetInstance.GetConnection()))
+                ConnectionDataBase.GetInstance.GetConnection()))
                 {
-                    ConnDataBase.GetInstance.OpenConnection();
+                    ConnectionDataBase.GetInstance.OpenConnection();
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue($"idFurniture", id);
                     using (MySqlDataReader reader = command.ExecuteReader())
@@ -278,7 +277,7 @@ namespace Furnituremarket.DAL.Repositories
             }
             finally
             {
-                ConnDataBase.GetInstance.CloseConnection();
+                ConnectionDataBase.GetInstance.CloseConnection();
             }
         }
 

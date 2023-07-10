@@ -4,49 +4,46 @@ namespace Furnituremarket.DAL
 {
     public class ConnectionDataBase
     {
-        public class ConnDataBase
+        static volatile ConnectionDataBase Class;
+        static object SyncObject = new object();
+        public static ConnectionDataBase GetInstance
         {
-            static volatile ConnDataBase Class;
-            static object SyncObject = new object();
-            public static ConnDataBase GetInstance
+            get
             {
-                get
-                {
-                    if (Class == null)
-                        lock (SyncObject)
-                        {
-                            if (Class == null)
-                                Class = new ConnDataBase(ConnectionString);
-                        }
-                    return Class;
-                }
+                if (Class == null)
+                    lock (SyncObject)
+                    {
+                        if (Class == null)
+                            Class = new ConnectionDataBase(ConnectionString);
+                    }
+                return Class;
             }
+        }
 
-            private static string ConnectionString { get; set; }
+        private static string ConnectionString { get; set; }
 
-            public ConnDataBase(string connectionString)
-            {
-                ConnectionString = connectionString;
-            }
+        public ConnectionDataBase(string connectionString)
+        {
+            ConnectionString = connectionString;
+        }
 
-            readonly MySqlConnection connection = new MySqlConnection(ConnectionString);
+        readonly MySqlConnection connection = new MySqlConnection(ConnectionString);
 
-            public MySqlConnection GetConnection()
-            {
-                return connection;
-            }
+        public MySqlConnection GetConnection()
+        {
+            return connection;
+        }
 
-            public void OpenConnection()
-            {
-                if (connection.State == System.Data.ConnectionState.Closed)
-                    connection.Open();
-            }
+        public void OpenConnection()
+        {
+            if (connection.State == System.Data.ConnectionState.Closed)
+                connection.Open();
+        }
 
-            public void CloseConnection()
-            {
-                if (connection.State == System.Data.ConnectionState.Open)
-                    connection.Close();
-            }
+        public void CloseConnection()
+        {
+            if (connection.State == System.Data.ConnectionState.Open)
+                connection.Close();
         }
     }
 }
