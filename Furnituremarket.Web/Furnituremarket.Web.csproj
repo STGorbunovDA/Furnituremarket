@@ -12,6 +12,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Furnituremarket.DAL\Furnituremarket.DAL.csproj" />
     <ProjectReference Include="..\Furnituremarket.Domain\Furnituremarket.Domain.csproj" />
+    <ProjectReference Include="..\Furnituremarket.Service\Furnituremarket.Service.csproj" />
   </ItemGroup>
 
 </Project>

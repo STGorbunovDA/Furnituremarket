@@ -1,6 +1,8 @@
 using Furnituremarket.DAL;
 using Furnituremarket.DAL.Interfaces;
 using Furnituremarket.DAL.Repositories;
+using Furnituremarket.Service.Implementations;
+using Furnituremarket.Service.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -26,7 +28,7 @@ namespace Furnituremarket.Web
             services.Add(new ServiceDescriptor(typeof(ConnectionDataBase), new ConnectionDataBase(connecntion)));
 
             services.AddScoped<IFurnitureRepository, FurnitureRepository>();
-            //services.AddScoped<IFurnitureService, FurnitureService>();
+            services.AddScoped<IFurnitureService, FurnitureService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
