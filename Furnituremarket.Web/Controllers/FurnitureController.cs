@@ -36,6 +36,15 @@ namespace Furnituremarket.Web.Controllers
         }
 
 
+        [HttpGet]
+        public async Task<IActionResult> GetFurnitureByName(string name)
+        {
+            var response = await _furnitureService.GetFurnitureByName(name);
+            if (response.CodeStatus == Domain.Enum.StatusCode.OK)
+                return View(response.Data);
+            return RedirectToAction("Error");
+        }
+
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
@@ -78,14 +87,7 @@ namespace Furnituremarket.Web.Controllers
             return RedirectToAction("Error");
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetFurnitureByName(string name)
-        {
-            var response = await _furnitureService.GetFurnitureByName(name);
-            if (response.CodeStatus == Domain.Enum.StatusCode.OK)
-                return View(response.Data);
-            return RedirectToAction("Error");
-        }
+        
 
         
 
