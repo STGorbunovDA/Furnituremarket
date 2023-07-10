@@ -5,7 +5,11 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "domain", "domain", "{A4D4C60F-6A01-419E-9B90-857998D22153}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Furnituremarket.Domain", "Furnituremarket.Domain\Furnituremarket.Domain.csproj", "{9CF176DD-5C91-4A0A-B6A2-BD12873CC81E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Furnituremarket.Domain", "Furnituremarket.Domain\Furnituremarket.Domain.csproj", "{9CF176DD-5C91-4A0A-B6A2-BD12873CC81E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dal", "dal", "{DDC1C1DD-DA8F-43B7-BDBF-C464BB64C751}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Furnituremarket.DAL", "Furnituremarket.DAL\Furnituremarket.DAL.csproj", "{9278F86B-39FD-4898-A570-CCD3F13F2E70}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,12 +21,17 @@ Global
 		{9CF176DD-5C91-4A0A-B6A2-BD12873CC81E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9CF176DD-5C91-4A0A-B6A2-BD12873CC81E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9CF176DD-5C91-4A0A-B6A2-BD12873CC81E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9278F86B-39FD-4898-A570-CCD3F13F2E70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9278F86B-39FD-4898-A570-CCD3F13F2E70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9278F86B-39FD-4898-A570-CCD3F13F2E70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9278F86B-39FD-4898-A570-CCD3F13F2E70}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{9CF176DD-5C91-4A0A-B6A2-BD12873CC81E} = {A4D4C60F-6A01-419E-9B90-857998D22153}
+		{9278F86B-39FD-4898-A570-CCD3F13F2E70} = {DDC1C1DD-DA8F-43B7-BDBF-C464BB64C751}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6621C63D-8A37-4458-9019-3ED622A726C9}
