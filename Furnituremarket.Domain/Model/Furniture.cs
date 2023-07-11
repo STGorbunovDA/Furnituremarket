@@ -12,7 +12,7 @@ namespace Furnituremarket.Domain.Model
         public string Material { get; set; }
         public decimal Price { get; set; }
         public DateTime DateCreate { get; set; }
-
+        //
         public Furniture(int id, string name, string description,
             string color, string material, decimal price, DateTime dateCreate)
         {
