@@ -104,9 +104,12 @@
                         <input class="btn btn-danger rounded" style="font-family:'Unbounded Light'; font-weight: bold; font-size:20px;" type="submit" value="Выход" />
                     </form>
                 }
-                <form action="/Furniture/GetFurnitureByName" method="get">
-                    <input type="text" name="name" value="" />
+                <form action="/Furniture/GetFurniture" method="get">
+                    <input type="text" name="query" value="" />
                     <button type="submit">Найти</button>
+                </form>
+                <form action="/Furniture/GetAllFurniture" method="get">
+                    <button type="submit">Показать всё</button>
                 </form>
             </div>
             <a class="navbar-brand justify-content-end" asp-controller="Home" asp-action="Index"><span style="color:black; font-family:Romul; font-size:30px; background-color:transparent; border-radius:10px;">MasterovMarket</span>@*<img src="~/Img/LSKIcon.jpg" style="width:30px; height: 30px; border-radius: 10px;">*@</a>

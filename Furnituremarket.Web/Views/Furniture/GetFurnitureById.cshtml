@@ -5,27 +5,35 @@
     Layout = "_Layout";
 }
 
-<div style="padding: 10px;"></div>
-<div class="card mb-3">
-    <div class="row g-0">
-        <div class="col-md-4">
-            <img src="https://pic.rutubelist.ru/video/29/07/2907a08a46f27a33198bfbc9e5fb0402.jpg"
-                 class="img-fluid rounded-start" alt="@Model?.Name">
-        </div>
-        <div class="col-md-4">
-            <div class="card-body">
-                <h5 class="card-title text-center">@Model?.Name</h5>
-                <p class="card-text"><b>Описание: </b>@Model?.Description</p>
-                <p class="card-text"><b>Стоимость: </b>@Model?.Price ₽</p>
-                <p class="card-text"><b>Материал: </b>@Model?.Material</p>
-                <p class="card-text"><b>Цвет: </b>@Model.Color</p>
-                <p class="card-text"><small class="text-muted">Дата выпуска - @Model?.DateCreate</small></p>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card-body">
-                <p class="card-text"><b>Описание: </b>@Model?.Description</p>
+
+
+<div class="row h-100 justify-content-center align-items-center">
+    <div class="row row-cols-1 col-md-4 text-center">
+        <div class="col" style="padding: 10px;">
+            <div class="card">
+                <img src="https://static.wixstatic.com/media/0236ae_3515be0abe5045eca2b1f7b3f9af8eb3~mv2.jpg/v1/fit/w_500,h_500,q_90/file.jpg" class="card-img-top" alt="@Model.Name">
+                <div class="card-body">
+                    <h5 class="card-title">@Model.Name</h5>
+                    <p class="card-text">@Model.Description</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Цвет: @Model.Color </li>
+                    <li class="list-group-item">Материал: @Model.Material</li>
+                    <li class="list-group-item">Стоимость: @Model.Price ₽</li>
+                </ul>
+                <div class="card-body">
+                    @*<a asp-action="GetFurnitureById" asp-route-id="@Model.Id" class="card-link">Перейти</a>*@
+                    @* <a asp-controller="Basket" asp-action="Add" asp-route-id="@id" class="card-link">Добавить</a> *@
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <hr />
+                        <a asp-controller="Furniture" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Удалить</a>
+                        <a asp-controller="Furniture" asp-action="Save" asp-route-id="@Model.Id" class="btn btn-primary">Изменить</a>
+                    }
+                </div>
             </div>
         </div>
     </div>
+
 </div>
+}

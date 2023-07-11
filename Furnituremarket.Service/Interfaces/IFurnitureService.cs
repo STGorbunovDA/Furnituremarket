@@ -8,19 +8,19 @@ namespace Furnituremarket.Service.Interfaces
 {
     public interface IFurnitureService
     {
+        Task<IBaseResponse<IEnumerable<Furniture>>> GetAllFurniture();
+        Task<IBaseResponse<Furniture>> GetFurnitureById(int id);
+        Task<IBaseResponse<IEnumerable<Furniture>>> GetFurniture(string query);
+
+
         Task<IBaseResponse<bool>> CreateFurniture(
             FurnitureViewModel furnitureViewModel);
 
-        Task<IBaseResponse<IEnumerable<Furniture>>> GetAllFurniture();
-
         Task<IBaseResponse<bool>> UpdateFurniture(int id,
             FurnitureViewModel furnitureViewModel);
-
         Task<IBaseResponse<bool>> DeleteFurniture(int id);
 
-        Task<IBaseResponse<Furniture>> GetFurnitureById(int id);       
-
-        Task<IBaseResponse<IEnumerable<Furniture>>> GetFurnitureByName(string name);
+        
         
     }
 }

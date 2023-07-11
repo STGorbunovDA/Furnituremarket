@@ -20,6 +20,102 @@ namespace Furnituremarket.Service.Implementations
             _furnitureRepository = furnitureRepository;
         }
 
+        public async Task<IBaseResponse<IEnumerable<Furniture>>> GetAllFurniture()
+        {
+            var baseResponse = new BaseResponse<IEnumerable<Furniture>>();
+
+            try
+            {
+                var furnitureFull = await _furnitureRepository.Read();
+
+                if (furnitureFull.Count == 0)
+                {
+                    baseResponse.Description = $"Furniture not found";
+                    baseResponse.CodeStatus = StatusCode.FurnitureNotFound;
+                    return baseResponse;
+                }
+
+                baseResponse.Data = furnitureFull;
+                baseResponse.CodeStatus = StatusCode.OK;
+                return baseResponse;
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<IEnumerable<Furniture>>()
+                {
+                    Description = $"[GetAllFurniture] : {ex.Message}",
+                    CodeStatus = StatusCode.InternalServerError
+                };
+            }
+        }
+
+        public async Task<IBaseResponse<Furniture>> GetFurnitureById(int id)
+        {
+            var baseResponse = new BaseResponse<Furniture>();
+
+            Furniture furniture = null;
+
+            try
+            {
+                if (id > 0)
+                    furniture = await _furnitureRepository.GetById(id);
+
+                if (furniture == null || furniture.Name == null)
+                {
+                    baseResponse.Description = $"Furniture not found";
+                    baseResponse.CodeStatus = StatusCode.FurnitureNotFound;
+                    return baseResponse;
+                }
+
+                baseResponse.Data = furniture;
+                baseResponse.CodeStatus = StatusCode.OK;
+                return baseResponse;
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<Furniture>()
+                {
+                    Description = $"[GetFurniture] : {ex.Message}",
+                    CodeStatus = StatusCode.InternalServerError
+                };
+            }
+        }
+
+        public async Task<IBaseResponse<IEnumerable<Furniture>>> GetFurniture(string query)
+        {
+            var baseResponse = new BaseResponse<IEnumerable<Furniture>>();
+
+            List<Furniture> furnitureList = null;
+
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(query))
+                    furnitureList = await _furnitureRepository.GetByQuery(query);
+
+                if (furnitureList == null)
+                {
+                    baseResponse.Description = $"Furniture not found";
+                    baseResponse.CodeStatus = StatusCode.FurnitureNotFound;
+                    return baseResponse;
+                }
+
+                baseResponse.Data = furnitureList;
+                baseResponse.CodeStatus = StatusCode.OK;
+                return baseResponse;
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<IEnumerable<Furniture>>()
+                {
+                    Description = $"[GetFurnitureByName] : {ex.Message}",
+                    CodeStatus = StatusCode.InternalServerError
+                };
+            }
+        }
+
+
+
+
         public async Task<IBaseResponse<bool>> CreateFurniture(
             FurnitureViewModel viewModel)
         {
@@ -54,36 +150,7 @@ namespace Furnituremarket.Service.Implementations
                     CodeStatus = StatusCode.InternalServerError
                 };
             }
-        }
-
-        public async Task<IBaseResponse<IEnumerable<Furniture>>> GetAllFurniture()
-        {
-            var baseResponse = new BaseResponse<IEnumerable<Furniture>>();
-
-            try
-            {
-                var furnitureFull = await _furnitureRepository.Read();
-
-                if (furnitureFull.Count == 0)
-                {
-                    baseResponse.Description = $"Furniture not found";
-                    baseResponse.CodeStatus = StatusCode.FurnitureNotFound;
-                    return baseResponse;
-                }
-
-                baseResponse.Data = furnitureFull;
-                baseResponse.CodeStatus = StatusCode.OK;
-                return baseResponse;
-            }
-            catch (Exception ex)
-            {
-                return new BaseResponse<IEnumerable<Furniture>>()
-                {
-                    Description = $"[GetAllFurniture] : {ex.Message}",
-                    CodeStatus = StatusCode.InternalServerError
-                };
-            }
-        }
+        }   
 
         public async Task<IBaseResponse<bool>> UpdateFurniture(int id,
             FurnitureViewModel viewModel)
@@ -167,69 +234,9 @@ namespace Furnituremarket.Service.Implementations
             }
         }
 
-        public async Task<IBaseResponse<IEnumerable<Furniture>>> GetFurnitureByName(string name)
-        {
-            var baseResponse = new BaseResponse<IEnumerable<Furniture>>();
+       
 
-            List<Furniture> furnitureList = null;
-
-            try
-            {
-                if (!string.IsNullOrWhiteSpace(name))
-                    furnitureList = await _furnitureRepository.GetByName(name);
-
-                if (furnitureList == null)
-                {
-                    baseResponse.Description = $"Furniture not found";
-                    baseResponse.CodeStatus = StatusCode.FurnitureNotFound;
-                    return baseResponse;
-                }
-
-                baseResponse.Data = furnitureList;
-                baseResponse.CodeStatus = StatusCode.OK;
-                return baseResponse;
-            }
-            catch (Exception ex)
-            {
-                return new BaseResponse<IEnumerable<Furniture>>()
-                {
-                    Description = $"[GetFurnitureByName] : {ex.Message}",
-                    CodeStatus = StatusCode.InternalServerError
-                };
-            }
-        }
-
-        public async Task<IBaseResponse<Furniture>> GetFurnitureById(int id)
-        {
-            var baseResponse = new BaseResponse<Furniture>();
-
-            Furniture furniture = null;
-
-            try
-            {
-                if (id > 0)
-                    furniture = await _furnitureRepository.GetById(id);
-
-                if (furniture == null || furniture.Name == null)
-                {
-                    baseResponse.Description = $"Furniture not found";
-                    baseResponse.CodeStatus = StatusCode.FurnitureNotFound;
-                    return baseResponse;
-                }
-
-                baseResponse.Data = furniture;
-                baseResponse.CodeStatus = StatusCode.OK;
-                return baseResponse;
-            }
-            catch (Exception ex)
-            {
-                return new BaseResponse<Furniture>()
-                {
-                    Description = $"[GetFurniture] : {ex.Message}",
-                    CodeStatus = StatusCode.InternalServerError
-                };
-            }
-        }
+        
 
     }
 }
