@@ -183,18 +183,18 @@ namespace Furnituremarket.DAL.Repositories
             }
         }
 
-        public async Task<List<Furniture>> GetByName(string name)
+        public async Task<List<Furniture>> GetByQuery(string query)
         {
             List<Furniture> listFurniture = new List<Furniture>();
 
             try
             {
-                using (MySqlCommand command = new MySqlCommand("GetFurnitureName",
+                using (MySqlCommand command = new MySqlCommand("GetFurnitureQuery",
                 ConnectionDataBase.GetInstance.GetConnection()))
                 {
                     ConnectionDataBase.GetInstance.OpenConnection();
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue($"nameFurniture", name);
+                    command.Parameters.AddWithValue($"queryFurniture", query);
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
                         if (reader.HasRows)

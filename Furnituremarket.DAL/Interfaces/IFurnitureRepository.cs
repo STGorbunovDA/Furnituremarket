@@ -6,7 +6,7 @@ namespace Furnituremarket.DAL.Interfaces
 {
     public interface IFurnitureRepository : IBaseRepository<Furniture>
     {
-        Task<List<Furniture>> GetByName(string name);
+        Task<List<Furniture>> GetByQuery(string query);
         Task<Furniture> GetById(int id);
     }
 }

@@ -17,63 +17,41 @@
     <button class='btn btn-success' id='showCardsId'>Показать</button>
 </div>
 
-<div style="padding: 10px;"></div>
+
 @if (Model.Count == 0)
 {
-    <div class="card col-md-12">
-        <div class="row g-0">
-            <div class="col-md-4">
-                <img src="https://www.meme-arsenal.com/memes/b3a9cf78387cb804ae080d6bd56fe79d.jpg"
-                     class="img-fluid rounded-start rounded">
-            </div>
-            <div class="col-md-8">
-                <div class="card-body">
-                    <h5 class="card-title text-center">Список мебели пуст</h5>
-                    <p class="card-text">
-                        Список пополниться позже, не расстраивайтесь
-                    </p>
+    <div class="row h-100 justify-content-center align-items-center">
+        <div class="row row-cols-1 col-md-4 text-center">
+            <div class="col" style="padding: 10px;">
+                <div class="card">
+                    <img src="https://present61.ru/upload/iblock/d77/kbl4yz93cg7iaayosk4tfeya9yjenrk7.jpg">
+                    <div class="card-body">
+                        <h5 class="card-title">Список мебели пуст</h5>
+                        <p class="card-text">Список пополниться позже, не расстраивайтесь</p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <div style="padding: 10px;"></div>
-    <div class="card text-center">
-        <div class="card-header">
-            <ul class="nav nav-pills card-header-pills">
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">Active</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                </li>
-            </ul>
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">Special title treatment</h5>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
         </div>
     </div>
 }
 else
 {
-    <div class="row">
+    <div class="row h-100 justify-content-center align-items-center">
+
         @foreach (var furniture in Model)
         {
             <div class="row row-cols-1 col-md-4 text-center">
                 <div class="col" style="padding: 10px;">
                     <div class="card">
-                        <img src="https://pic.rutubelist.ru/video/29/07/2907a08a46f27a33198bfbc9e5fb0402.jpg" class="card-img-top" alt="@furniture.Name">
+                        <img src="https://static.wixstatic.com/media/0236ae_3515be0abe5045eca2b1f7b3f9af8eb3~mv2.jpg/v1/fit/w_500,h_500,q_90/file.jpg" class="card-img-top" alt="@furniture.Name">
                         <div class="card-body">
                             <h5 class="card-title">@furniture.Name</h5>
                             <p class="card-text">@furniture.Description</p>
                         </div>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item">Стоимость: @furniture.Price ₽</li>
+                            <li class="list-group-item">Цвет: @furniture.Color </li>
                             <li class="list-group-item">Материал: @furniture.Material</li>
+                            <li class="list-group-item">Стоимость: @furniture.Price ₽</li>
                         </ul>
                         <div class="card-body">
                             <a asp-action="GetFurnitureById" asp-route-id="@furniture.Id" class="card-link">Перейти</a>

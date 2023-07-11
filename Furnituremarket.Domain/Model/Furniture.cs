@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 
 namespace Furnituremarket.Domain.Model
 {
@@ -24,5 +25,15 @@ namespace Furnituremarket.Domain.Model
             DateCreate = dateCreate;
         }
         public Furniture() { }
+
+        internal static bool IsPrice(string price)
+        {
+            if (price == null) return false;
+
+            price = price.Replace(" ", "")
+                         .Replace(",", ".");
+
+            return Regex.IsMatch(price, @"^\d+(.\d{1,2})?$");
+        }
     }
 }

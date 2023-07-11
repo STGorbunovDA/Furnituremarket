@@ -35,15 +35,17 @@ namespace Furnituremarket.Web.Controllers
             return RedirectToAction("Error");
         }
 
-
         [HttpGet]
-        public async Task<IActionResult> GetFurnitureByName(string name)
+        public async Task<IActionResult> GetFurniture(string query)
         {
-            var response = await _furnitureService.GetFurnitureByName(name);
+            var response = await _furnitureService.GetFurniture(query);
             if (response.CodeStatus == Domain.Enum.StatusCode.OK)
                 return View(response.Data);
             return RedirectToAction("Error");
         }
+
+
+
 
 
         [HttpPost]
