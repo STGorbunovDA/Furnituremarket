@@ -88,11 +88,6 @@ namespace Furnituremarket.Web.Controllers
                 return View(response.Data);
             return RedirectToAction("Error");
         }
-
-        
-
-        
-
-        
+    
     }
 }
