@@ -19,9 +19,12 @@
                     <li class="list-group-item">Материал: @Model.Material</li>
                     <li class="list-group-item">Стоимость: @Model.Price ₽</li>
                 </ul>
-                <div class="card-body">
-                    @*<a asp-action="GetFurnitureById" asp-route-id="@Model.Id" class="card-link">Перейти</a>*@
-                    @* <a asp-controller="Basket" asp-action="Add" asp-route-id="@id" class="card-link">Добавить</a> *@
+                <div class="card-body">    
+                    <form action="@Url.Action("AddInCartFurniture")" method="post">
+                        <input type="hidden" name="id" value="@Model.Id" />
+                        <input type="hidden" name="price" value="@Model.Price" />
+                        <button class="btn btn btn-outline-info" type="submit">Добавить в корзину</button>
+                    </form>
                     @if (User.IsInRole("Admin"))
                     {
                         <hr />
