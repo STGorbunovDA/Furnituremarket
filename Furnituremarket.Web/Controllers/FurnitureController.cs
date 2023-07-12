@@ -22,7 +22,7 @@ namespace Furnituremarket.Web.Controllers
         {
             var response = await _furnitureService.GetAllFurniture();
             if (response.CodeStatus == Domain.Enum.StatusCode.OK)
-                return View(response.Data.ToList());
+                return View("GetAllFurniture", response.Data.ToList());
             return RedirectToAction("Error");
         }
 
@@ -31,7 +31,7 @@ namespace Furnituremarket.Web.Controllers
         {
             var response = await _furnitureService.GetFurnitureById(id);
             if (response.CodeStatus == Domain.Enum.StatusCode.OK)
-                return View(response.Data);
+                return View("GetFurnitureById", response.Data);
             return RedirectToAction("Error");
         }
 
@@ -40,7 +40,7 @@ namespace Furnituremarket.Web.Controllers
         {
             var response = await _furnitureService.GetFurniture(query);
             if (response.CodeStatus == Domain.Enum.StatusCode.OK)
-                return View(response.Data);
+                return View("GetAllFurniture", response.Data);
             return RedirectToAction("Error");
         }
 
