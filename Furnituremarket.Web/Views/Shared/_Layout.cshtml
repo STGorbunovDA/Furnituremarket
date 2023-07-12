@@ -109,13 +109,13 @@
                 <div class="mr-sm-1" style="width:362px">
                     <form class="form-inline my-2 my-lg-0" action="@Url.Action("GetFurniture","Furniture")" method="get">
                         <input class="form-control mr-sm-2 w-75" type="search" name="query" placeholder="Название, описание, цвет, цена" />
-                        <button class="btn btn-outline-light  my-2 my-sm-0" type="submit">Искать</button>
+                        <button class="btn btn-outline-info  my-2 my-sm-0" type="submit">Искать</button>
                     </form>
 
                 </div>
                 <div class="mr-sm-2">
                     <form class="form-inline" action="@Url.Action("GetAllFurniture","Furniture")" method="get">
-                        <button class="btn btn-outline-light" type="submit">Показать всё</button>
+                        <button class="btn btn-outline-success" type="submit">Показать всё</button>
                     </form>
                 </div>
                 <div class="mr-sm-2">
@@ -136,15 +136,6 @@
                         }
                     </span>
                 </div>
-               
-                @* <form action="/Furniture/GetFurniture" method="get">
-                <input type="text" name="query" value="" />
-                <button type="submit">Найти</button>
-                </form>*@
-                &nbsp;
-                @*<form action="/Furniture/GetAllFurniture" method="get">
-                <button type="submit">Показать всё</button>
-                </form>*@
             </div>
             <a class="navbar-brand justify-content-end" asp-controller="Home" asp-action="Index">
                 <span style="color:black; font-family:Romul; font-size:30px; background-color:transparent; border-radius:10px;">MasterovMarket</span>@*<img src="~/Img/LSKIcon.jpg" style="width:30px; height: 30px; border-radius: 10px;">*@

@@ -57,10 +57,10 @@ else
                                 <div class="mr-sm-2">
                                     <a asp-action="GetFurnitureById" asp-route-id="@furniture.Id" class="btn btn-outline-info">Подробно</a>
                                 </div>
-                                <form action="@Url.Action("AddInCartFurniture")" method="post">
+                                <form action="@Url.Action("AddInCartFurniture","Cart")" method="post">
                                     <input type="hidden" name="id" value="@furniture.Id" />
                                     <input type="hidden" name="price" value="@furniture.Price" />
-                                    <button class="btn btn btn-outline-info" type="submit">Добавить в корзину</button>
+                                    <button class="btn btn-outline-success" type="submit">Добавить в корзину</button>
                                 </form>
                             </div>
 

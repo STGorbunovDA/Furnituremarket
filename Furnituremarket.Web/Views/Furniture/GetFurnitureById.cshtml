@@ -20,10 +20,10 @@
                     <li class="list-group-item">Стоимость: @Model.Price ₽</li>
                 </ul>
                 <div class="card-body">    
-                    <form action="@Url.Action("AddInCartFurniture")" method="post">
+                    <form action="@Url.Action("AddInCartFurniture","Cart")" method="post">
                         <input type="hidden" name="id" value="@Model.Id" />
                         <input type="hidden" name="price" value="@Model.Price" />
-                        <button class="btn btn btn-outline-info" type="submit">Добавить в корзину</button>
+                        <button class="btn btn-outline-success" type="submit">Добавить в корзину</button>
                     </form>
                     @if (User.IsInRole("Admin"))
                     {
