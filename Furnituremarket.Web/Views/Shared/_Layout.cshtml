@@ -1,10 +1,10 @@
 ﻿
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Furnituremarket</title>
+    <title>@ViewData["Title"]Интернет магазин мебели</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/backImage.css" />
@@ -17,102 +17,119 @@
     <header>
         <nav class="navbar navbar-expand-lg" style="background-color: #B6AD9E;">
             <div class="collapse navbar-collapse">
-                <ul class="navbar-nav">
-                    @if (!User.Identity.IsAuthenticated)
-                    {
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle paragraphLayout active text-black" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-family:'Unbounded Light'; ">
-                                Аккаунт
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="text-center">
-                                            <ul class="nav flex-column paragraphHome">
-                                                <li class="nav-item" id="m1">
-                                                    <a class="nav-link active text-white" asp-controller="Account" asp-action="Register" style="font-family:'Unbounded Light'; ">
-                                                        Регистрация
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link active text-white" asp-controller="Account" asp-action="Login" style="font-family:'Unbounded Light'; ">
-                                                        Вход
-                                                    </a>
-                                                </li>
-                                            </ul>
+                <div class="mr-sm-2">
+                    <ul class="navbar-nav">
+                        @if (!User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle paragraphLayout active text-black" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Аккаунт
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="text-center">
+                                                <ul class="nav flex-column paragraphHome">
+                                                    <li class="nav-item" id="m1">
+                                                        <a class="nav-link active text-white" asp-controller="Account" asp-action="Register" style="font-family:'Unbounded Light'; ">
+                                                            Регистрация
+                                                        </a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link active text-white" asp-controller="Account" asp-action="Login" style="font-family:'Unbounded Light'; ">
+                                                            Вход
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </li>
-                    }
+                            </li>
+                        }
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle paragraphLayout active text-black" href="#" data-toggle="dropdown" style="font-family:'Unbounded Light'; font-weight: bold;">
+                                    Авто
+                                </a>
+                                <div class="dropdown-menu">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <ul class="nav flex-column paragraphHome">
+                                                    <li class="nav-item text-center">
+                                                        <a class="nav-link active text-white" asp-controller="Car" asp-action="List">
+                                                            Список
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        }
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle paragraphLayout active text-black" href="#" data-toggle="dropdown" style="font-family:'Unbounded Light'; font-weight: bold;">
+                                    Админ
+                                </a>
+                                <div class="dropdown-menu">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <ul class="nav flex-column paragraphHome">
+                                                    <li class="nav-item text-center">
+                                                        <a class="nav-link active text-white" asp-controller="Car" asp-action="Save">
+                                                            Добавление
+                                                        </a>
+                                                    </li>
+                                                    <li class="nav-item text-center">
+                                                        <a class="nav-link active text-white" asp-controller="Admin" asp-action="Index">
+                                                            Пользователи
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        }
+                    </ul>
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle paragraphLayout active text-black" href="#" data-toggle="dropdown" style="font-family:'Unbounded Light'; font-weight: bold;">
-                                Авто
-                            </a>
-                            <div class="dropdown-menu">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <ul class="nav flex-column paragraphHome">
-                                                <li class="nav-item text-center">
-                                                    <a class="nav-link active text-white" asp-controller="Car" asp-action="List">
-                                                        Список
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
+                        <form method="post" asp-controller="Account" asp-action="Logout">
+                            <input class="btn btn-danger rounded" style="font-family:'Unbounded Light'; font-weight: bold; font-size:20px;" type="submit" value="Выход" />
+                        </form>
                     }
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle paragraphLayout active text-black" href="#" data-toggle="dropdown" style="font-family:'Unbounded Light'; font-weight: bold;">
-                                Админ
-                            </a>
-                            <div class="dropdown-menu">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <ul class="nav flex-column paragraphHome">
-                                                <li class="nav-item text-center">
-                                                    <a class="nav-link active text-white" asp-controller="Car" asp-action="Save">
-                                                        Добавление
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item text-center">
-                                                    <a class="nav-link active text-white" asp-controller="Admin" asp-action="Index">
-                                                        Пользователи
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    }
-                </ul>
-                @if (User.Identity.IsAuthenticated)
-                {
-                    <form method="post" asp-controller="Account" asp-action="Logout">
-                        <input class="btn btn-danger rounded" style="font-family:'Unbounded Light'; font-weight: bold; font-size:20px;" type="submit" value="Выход" />
+                </div>
+                <div class="mr-sm-1" style="width:362px">
+                    <form class="form-inline my-2 my-lg-0" action="@Url.Action("GetFurniture","Furniture")" method="get">
+                        <input class="form-control mr-sm-2 w-75" type="search" name="query" placeholder="Название, описание, цвет, цена" />
+                        <button class="btn btn-outline-light  my-2 my-sm-0" type="submit">Искать</button>
                     </form>
-                }
-                <form action="/Furniture/GetFurniture" method="get">
-                    <input type="text" name="query" value="" />
-                    <button type="submit">Найти</button>
-                </form>
-                <form action="/Furniture/GetAllFurniture" method="get">
-                    <button type="submit">Показать всё</button>
-                </form>
+
+                </div>
+                <div class="mr-sm-1">
+                    <form class="form-inline" action="@Url.Action("GetAllFurniture","Furniture")" method="get">
+                        <button class="btn btn-outline-light" type="submit">Показать всё</button>
+                    </form>
+                </div>
+                @* <form action="/Furniture/GetFurniture" method="get">
+                <input type="text" name="query" value="" />
+                <button type="submit">Найти</button>
+                </form>*@
+                &nbsp;
+                @*<form action="/Furniture/GetAllFurniture" method="get">
+                <button type="submit">Показать всё</button>
+                </form>*@
             </div>
-            <a class="navbar-brand justify-content-end" asp-controller="Home" asp-action="Index"><span style="color:black; font-family:Romul; font-size:30px; background-color:transparent; border-radius:10px;">MasterovMarket</span>@*<img src="~/Img/LSKIcon.jpg" style="width:30px; height: 30px; border-radius: 10px;">*@</a>
+            <a class="navbar-brand justify-content-end" asp-controller="Home" asp-action="Index">
+                <span style="color:black; font-family:Romul; font-size:30px; background-color:transparent; border-radius:10px;">MasterovMarket</span>@*<img src="~/Img/LSKIcon.jpg" style="width:30px; height: 30px; border-radius: 10px;">*@
+            </a>
             @* <button class="navbar-toggler badge-light" style="border-radius:10px;" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <svg width="1em" height="1em" viewBox="0 0 10 10" class="bi bi-caret-down-square-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4 4a.5.5 0 0 0-.374.832l4 4.5a.5.5 0 0 0 .748 0l4-4.5A.5.5 0 0 0 12 6H4z" />

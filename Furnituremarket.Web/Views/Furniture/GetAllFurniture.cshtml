@@ -1,4 +1,4 @@
-﻿@model List<Furnituremarket.Domain.Model.Furniture>
+﻿@model List<Furniture>
 
 @{
     ViewBag.Title = "title";
@@ -13,8 +13,8 @@
 </style>
 
 <div class="card-buttons-group">
-    <button class="btn btn-danger" id='hideCardsId'>Скрыть</button>
-    <button class='btn btn-success' id='showCardsId'>Показать</button>
+    <button class="btn btn-outline-info" id='showCardsId'>Показать</button>
+    <button class="btn btn-outline-success" id='hideCardsId'>Скрыть</button>
 </div>
 
 <div style="padding: 10px;"></div>
@@ -53,7 +53,7 @@ else
                             <li class="list-group-item">Стоимость: @furniture.Price ₽</li>
                         </ul>
                         <div class="card-body">
-                            <a asp-action="GetFurnitureById" asp-route-id="@furniture.Id" class="card-link">Перейти</a>
+                            <a asp-action="GetFurnitureById" asp-route-id="@furniture.Id" class="btn btn-outline-info">Подробно</a>
                             @* <a asp-controller="Basket" asp-action="Add" asp-route-id="@id" class="card-link">Добавить</a> *@
                             @if (User.IsInRole("Admin"))
                             {
