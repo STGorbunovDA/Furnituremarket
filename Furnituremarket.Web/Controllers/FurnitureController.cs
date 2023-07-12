@@ -60,7 +60,7 @@ namespace Furnituremarket.Web.Controllers
 
                 HttpContext.Session.Set(cart);
 
-                return RedirectToAction("GetFurnitureById", "Furniture", new {id});   
+                return RedirectToAction("GetAllFurniture", "Furniture", new {id});   
         }
 
 
