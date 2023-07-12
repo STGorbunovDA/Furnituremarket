@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 
 namespace Furnituremarket.Web
 {
@@ -24,6 +25,15 @@ namespace Furnituremarket.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddDistributedMemoryCache();
+            services.AddSession(option =>
+            {
+                option.IOTimeout = TimeSpan.FromMinutes(20);
+                option.Cookie.HttpOnly = true;
+                option.Cookie.IsEssential = true;
+            });
+
+
             string connecntion = Configuration.GetConnectionString("DefaultConnection");
             services.Add(new ServiceDescriptor(typeof(ConnectionDataBase), new ConnectionDataBase(connecntion)));
 
@@ -50,6 +60,8 @@ namespace Furnituremarket.Web
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {
