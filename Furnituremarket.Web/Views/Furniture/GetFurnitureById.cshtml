@@ -9,7 +9,9 @@
     <div class="row row-cols-1 col-md-4 text-center">
         <div class="col" style="padding: 10px;">
             <div class="card">
-                <img src="https://static.wixstatic.com/media/0236ae_3515be0abe5045eca2b1f7b3f9af8eb3~mv2.jpg/v1/fit/w_500,h_500,q_90/file.jpg" class="card-img-top" alt="@Model.Name">
+               @* <img src="data:image/jpeg;base64,@Convert.ToBase64String(Model?.Image ?? Array.Empty<byte>())"
+                     class="img-fluid rounded-start rounded" alt="@Model?.Name">*@
+                <img src="@Model.Image" class="card-img-top" alt="@Model.Name">
                 <div class="card-body">
                     <h5 class="card-title">@Model.Name</h5>
                     <p class="card-text">@Model.Description</p>
