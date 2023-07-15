@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
-using System.Xml.Linq;
 
 namespace Furnituremarket.Domain.Model
 {
@@ -33,9 +32,13 @@ namespace Furnituremarket.Domain.Model
         [Required(ErrorMessage = "Укажите стоимость")]
         public decimal Price { get; set; }
         public DateTime DateCreate { get; set; }
+
+        //public IFormFile Avatar { get; set; }
+
+        public string Image { get; set; }
         //
         public Furniture(int id, string name, string description,
-            string color, string material, decimal price, DateTime dateCreate)
+            string color, string material, decimal price, DateTime dateCreate, string image)
         {
             Id = id;
             Name = name;
@@ -44,6 +47,7 @@ namespace Furnituremarket.Domain.Model
             Material = material;
             Price = price;
             DateCreate = dateCreate;
+            Image = image;
         }
         public Furniture() { }
 

@@ -112,9 +112,6 @@ namespace Furnituremarket.Service.Implementations
             }
         }
 
-
-
-
         public async Task<IBaseResponse<bool>> CreateFurniture(
             Furniture model)
         {
@@ -129,7 +126,8 @@ namespace Furnituremarket.Service.Implementations
                     Color = model.Color,
                     Material = model.Material,
                     Price = model.Price,
-                    DateCreate = DateTime.Now
+                    DateCreate = DateTime.Now,
+                    Image = model.Image
                 };
 
                 baseResponse.Data = await _furnitureRepository.Create(furniture);
@@ -148,10 +146,10 @@ namespace Furnituremarket.Service.Implementations
                     CodeStatus = StatusCode.InternalServerError
                 };
             }
-        }   
+        }
 
         public async Task<IBaseResponse<bool>> UpdateFurniture(int id,
-            Furniture viewModel)
+            Furniture model)
         {
             var baseResponse = new BaseResponse<bool>();
 
@@ -169,12 +167,13 @@ namespace Furnituremarket.Service.Implementations
                     return baseResponse;
                 }
 
-                furniture.Name = viewModel.Name;
-                furniture.Description = viewModel.Description;
-                furniture.Color = viewModel.Color;
-                furniture.Material = viewModel.Material;
-                furniture.Price = viewModel.Price;
+                furniture.Name = model.Name;
+                furniture.Description = model.Description;
+                furniture.Color = model.Color;
+                furniture.Material = model.Material;
+                furniture.Price = model.Price;
                 furniture.DateCreate = DateTime.Now;
+                furniture.Image = model.Image;
 
                 baseResponse.Data = await _furnitureRepository.Update(furniture);
 
@@ -193,7 +192,7 @@ namespace Furnituremarket.Service.Implementations
                 };
             }
 
-        } 
+        }
 
         public async Task<IBaseResponse<bool>> DeleteFurniture(int id)
         {
@@ -231,10 +230,6 @@ namespace Furnituremarket.Service.Implementations
                 };
             }
         }
-
-       
-
-        
 
     }
 }

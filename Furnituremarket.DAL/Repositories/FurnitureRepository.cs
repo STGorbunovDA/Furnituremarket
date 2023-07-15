@@ -26,6 +26,7 @@ namespace Furnituremarket.DAL.Repositories
                     command.Parameters.AddWithValue($"priceFurniture", entity.Price);
                     command.Parameters.AddWithValue($"dateCreateFurniture",
                         entity.DateCreate.ToString("yyyy-MM-dd"));
+                    command.Parameters.AddWithValue($"imageFurniture", entity.Image);
                     if (command.ExecuteNonQuery() == 1)
                     {
                         return await Task.Run(() =>
@@ -77,7 +78,8 @@ namespace Furnituremarket.DAL.Repositories
                                         reader.GetString(3),
                                         reader.GetString(4),
                                         reader.GetDecimal(5),
-                                        reader.GetDateTime(6)));
+                                        reader.GetDateTime(6),
+                                        reader.GetString(7)));
                             }
                         }
                         reader.Close();
@@ -117,6 +119,7 @@ namespace Furnituremarket.DAL.Repositories
                     command.Parameters.AddWithValue($"priceFurniture", entity.Price);
                     command.Parameters.AddWithValue($"dateCreateFurniture",
                         entity.DateCreate.ToString("yyyy-MM-dd"));
+                    command.Parameters.AddWithValue($"imageFurniture", entity.Image);
                     command.Parameters.AddWithValue($"idFurniture", entity.Id);
                     if (command.ExecuteNonQuery() == 1)
                     {
@@ -208,7 +211,8 @@ namespace Furnituremarket.DAL.Repositories
                                         reader.GetString(3),
                                         reader.GetString(4),
                                         reader.GetDecimal(5),
-                                        reader.GetDateTime(6)));
+                                        reader.GetDateTime(6),
+                                        reader.GetString(7)));
                             }
                         }
                         reader.Close();
@@ -257,7 +261,8 @@ namespace Furnituremarket.DAL.Repositories
                                         reader.GetString(3),
                                         reader.GetString(4),
                                         reader.GetDecimal(5),
-                                        reader.GetDateTime(6));
+                                        reader.GetDateTime(6),
+                                        reader.GetString(7));
                             }
                         }
                         reader.Close();

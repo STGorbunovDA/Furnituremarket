@@ -13,10 +13,10 @@ namespace Furnituremarket.Service.Interfaces
 
 
         Task<IBaseResponse<bool>> CreateFurniture(
-            Furniture furnitureViewModel);
+            Furniture furniture);
 
         Task<IBaseResponse<bool>> UpdateFurniture(int id,
-            Furniture furnitureViewModel);
+            Furniture furniture);
         Task<IBaseResponse<bool>> DeleteFurniture(int id);
 
         
