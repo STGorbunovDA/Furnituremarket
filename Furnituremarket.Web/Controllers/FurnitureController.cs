@@ -1,9 +1,11 @@
-﻿using Furnituremarket.Domain.Response.Interfaces;
-using Furnituremarket.Domain.ViewModels.Furniture;
+﻿using Furnituremarket.Domain.Model;
+using Furnituremarket.Domain.Response.Interfaces;
 using Furnituremarket.Service.Interfaces;
 using Furnituremarket.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -45,32 +47,52 @@ namespace Furnituremarket.Web.Controllers
             return RedirectToAction("Error");
         }
 
-
-
-        [HttpPost]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Save(FurnitureViewModel model)
+        //[Authorize(Roles = "Admin")]
+        [HttpGet]
+        public async Task<IActionResult> DeleteFurniture(int id)
         {
-            IBaseResponse<bool> response = null;
-
-            if (ModelState.IsValid)
-            {
-                if (model.Id == 0)
-                    response = await _furnitureService.CreateFurniture(model);
-                else
-                    response = await _furnitureService.UpdateFurniture(model.Id, model);
-            }
+            var response = await _furnitureService.DeleteFurniture(id);
             if (response.CodeStatus == Domain.Enum.StatusCode.OK)
-                return View("GetCars");
+                return RedirectToAction("GetAllFurniture");
             return RedirectToAction("Error");
         }
 
-        [HttpGet]
+
+
         //[Authorize(Roles = "Admin")]
+        [HttpPost]
+        public async Task<IActionResult> Save(Furniture model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (model.Id == 0)
+                {
+                    //byte[] imageData;
+                    //using (var binaryReader = new BinaryReader(model.Avatar.OpenReadStream()))
+                    //{
+                    //    imageData = binaryReader.ReadBytes((int)model.Avatar.Length);
+                    //}
+                    //await _carService.Create(model, imageData);
+                    await _furnitureService.CreateFurniture(model);
+                }
+                else
+                {
+                    await _furnitureService.UpdateFurniture(model.Id, model);
+                }
+                return RedirectToAction("GetAllFurniture");
+            }
+            return View();
+
+
+        }
+
+        //[Authorize(Roles = "Admin")]
+        [HttpGet]
         public async Task<IActionResult> Save(int id)
         {
             if (id == 0)
-                return View();
+                return View(new Furniture());
+
 
             var response = await _furnitureService.GetFurnitureById(id);
 
@@ -79,14 +101,9 @@ namespace Furnituremarket.Web.Controllers
             return RedirectToAction("Error");
         }
 
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> DeleteFurniture(int id)
-        {
-            var response = await _furnitureService.DeleteFurniture(id);
-            if (response.CodeStatus == Domain.Enum.StatusCode.OK)
-                return View(response.Data);
-            return RedirectToAction("Error");
-        }
-    
+
+
+
+
     }
 }

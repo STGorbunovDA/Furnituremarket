@@ -1,0 +1,58 @@
+﻿@model Furniture
+@{
+    ViewBag.Title = "";
+    Layout = "_Layout";
+}
+
+@{
+    var textTitle = Model?.Id != 0 ? "Изменение данных" : "Добавление данных";
+}
+
+<div style="padding: 10px;"></div>
+<div class="col-md-12">
+    <div class="card-body">
+        <div class="card " style="background-color: white">
+            <div class="card-header">
+                <h3 class="mb-0 text-center ParagraphHome">@textTitle</h3>
+            </div>
+            <div class="card-body">
+                <form asp-controller="Furniture" asp-action="Save" enctype="multipart/form-data">
+                    <input asp-for="Id" hidden />
+                    <div asp-validation-summary="All" style="font-size:23px; font-family:Impact, serif" class="text-danger text-center"></div>
+                    <div class="form-group">
+                        <label>Наименование изделия</label>
+                        <input asp-for="Name" class="form-control" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label>Цвет</label>
+                        <input asp-for="Color" class="form-control" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label>Материал</label>
+                        <input asp-for="Material" class="form-control" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label>Описание</label>
+                        <textarea asp-for="Description" class="form-control"></textarea>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-text">₽</div>
+                        <input asp-for="Price" type="text" class="form-control">
+                    </div>
+
+                    @*
+                    <div class="input-group mb-3">
+                    <input asp-for="Avatar" class="form-control" type="file">
+                    </div>*@
+                    <button class="btn btn-success btn-lg float-right" type="submit">Отправить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    label {
+        color: black;
+    }
+</style>

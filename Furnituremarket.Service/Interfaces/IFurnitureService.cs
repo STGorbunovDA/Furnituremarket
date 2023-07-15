@@ -1,6 +1,5 @@
 ﻿using Furnituremarket.Domain.Model;
 using Furnituremarket.Domain.Response.Interfaces;
-using Furnituremarket.Domain.ViewModels.Furniture;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -14,10 +13,10 @@ namespace Furnituremarket.Service.Interfaces
 
 
         Task<IBaseResponse<bool>> CreateFurniture(
-            FurnitureViewModel furnitureViewModel);
+            Furniture furnitureViewModel);
 
         Task<IBaseResponse<bool>> UpdateFurniture(int id,
-            FurnitureViewModel furnitureViewModel);
+            Furniture furnitureViewModel);
         Task<IBaseResponse<bool>> DeleteFurniture(int id);
 
         

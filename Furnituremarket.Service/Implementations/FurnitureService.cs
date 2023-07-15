@@ -3,7 +3,6 @@ using Furnituremarket.Domain.Enum;
 using Furnituremarket.Domain.Model;
 using Furnituremarket.Domain.Response.Interfaces;
 using Furnituremarket.Domain.Response;
-using Furnituremarket.Domain.ViewModels.Furniture;
 using Furnituremarket.Service.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -117,7 +116,7 @@ namespace Furnituremarket.Service.Implementations
 
 
         public async Task<IBaseResponse<bool>> CreateFurniture(
-            FurnitureViewModel viewModel)
+            Furniture model)
         {
             var baseResponse = new BaseResponse<bool>();
 
@@ -125,13 +124,12 @@ namespace Furnituremarket.Service.Implementations
             {
                 var furniture = new Furniture()
                 {
-                    Name = viewModel.Name,
-                    Description = viewModel.Description,
-                    Color = viewModel.Color,
-                    Material = viewModel.Material,
-                    Price = viewModel.Price,
-                    DateCreate = viewModel.DateCreate
-
+                    Name = model.Name,
+                    Description = model.Description,
+                    Color = model.Color,
+                    Material = model.Material,
+                    Price = model.Price,
+                    DateCreate = DateTime.Now
                 };
 
                 baseResponse.Data = await _furnitureRepository.Create(furniture);
@@ -153,7 +151,7 @@ namespace Furnituremarket.Service.Implementations
         }   
 
         public async Task<IBaseResponse<bool>> UpdateFurniture(int id,
-            FurnitureViewModel viewModel)
+            Furniture viewModel)
         {
             var baseResponse = new BaseResponse<bool>();
 
@@ -176,7 +174,7 @@ namespace Furnituremarket.Service.Implementations
                 furniture.Color = viewModel.Color;
                 furniture.Material = viewModel.Material;
                 furniture.Price = viewModel.Price;
-                furniture.DateCreate = viewModel.DateCreate;
+                furniture.DateCreate = DateTime.Now;
 
                 baseResponse.Data = await _furnitureRepository.Update(furniture);
 
