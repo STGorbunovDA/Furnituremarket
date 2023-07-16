@@ -6,6 +6,8 @@
 
   <ItemGroup>
     <PackageReference Include="MySql.Data" Version="8.0.33" />
+    <PackageReference Include="NLog.Extensions.Logging" Version="5.3.2" />
+    <PackageReference Include="NLog.Web.AspNetCore" Version="5.3.2" />
   </ItemGroup>
 
   <ItemGroup>

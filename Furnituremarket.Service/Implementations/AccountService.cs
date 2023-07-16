@@ -10,6 +10,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System;
 using Microsoft.Extensions.Logging;
+using NLog;
 
 namespace Furnituremarket.Service.Implementations
 {
@@ -35,7 +36,7 @@ namespace Furnituremarket.Service.Implementations
                 {
                     return new BaseResponse<ClaimsIdentity>()
                     {
-                        Description = "Такой пользователь уже есть",
+                        Description = $"Такой пользователь уже есть {model.Name}",
                     };
                 }
 
@@ -49,10 +50,11 @@ namespace Furnituremarket.Service.Implementations
                 await _userRepository.Create(user);
                 var result = Authenticate(user);
 
+                 
                 return new BaseResponse<ClaimsIdentity>()
                 {
                     Data = result,
-                    Description = "Объект добавился",
+                    Description = $"Пользователь {model.Name} зарегестрировался",
                     CodeStatus = StatusCode.OK
                 };
             }
@@ -76,7 +78,7 @@ namespace Furnituremarket.Service.Implementations
                 {
                     return new BaseResponse<ClaimsIdentity>()
                     {
-                        Description = "Пользователь не найден"
+                        Description = $"Пользователь {model.Name} не найден"
                     };
                 }
 
@@ -84,7 +86,7 @@ namespace Furnituremarket.Service.Implementations
                 {
                     return new BaseResponse<ClaimsIdentity>()
                     {
-                        Description = "Неверный пароль"
+                        Description = $"Неверный пароль пользователя {model.Name}"
                     };
                 }
                 var result = Authenticate(user);
@@ -92,6 +94,7 @@ namespace Furnituremarket.Service.Implementations
                 return new BaseResponse<ClaimsIdentity>()
                 {
                     Data = result,
+                    Description = $"Пользователь {model.Name} авторизовался",
                     CodeStatus = StatusCode.OK
                 };
             }
