@@ -1,5 +1,4 @@
-﻿
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="utf-8" />
@@ -31,36 +30,13 @@
                                             <div class="text-center">
                                                 <ul class="nav flex-column paragraphHome">
                                                     <li class="nav-item" id="m1">
-                                                        <a class="nav-link active text-white" asp-controller="Account" asp-action="Register" style="font-family:'Unbounded Light'; ">
+                                                        <a class="nav-link active text-white" asp-controller="Account" asp-action="Register">
                                                             Регистрация
                                                         </a>
                                                     </li>
                                                     <li class="nav-item">
-                                                        <a class="nav-link active text-white" asp-controller="Account" asp-action="Login" style="font-family:'Unbounded Light'; ">
+                                                        <a class="nav-link active text-white" asp-controller="Account" asp-action="Login">
                                                             Вход
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        }
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle paragraphLayout active text-black" href="#" data-toggle="dropdown" style="font-family:'Unbounded Light'; font-weight: bold;">
-                                    Авто
-                                </a>
-                                <div class="dropdown-menu">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <ul class="nav flex-column paragraphHome">
-                                                    <li class="nav-item text-center">
-                                                        <a class="nav-link active text-white" asp-controller="Car" asp-action="List">
-                                                            Список
                                                         </a>
                                                     </li>
                                                 </ul>
@@ -73,7 +49,10 @@
                         @if (User.IsInRole("Admin"))
                         {
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle paragraphLayout active text-black" href="#" data-toggle="dropdown" style="font-family:'Unbounded Light'; font-weight: bold;">
+                                @*<a class="nav-link dropdown-toggle paragraphLayout active text-black" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Аккаунт
+                                </a>*@
+                                <a class="nav-link dropdown-toggle paragraphLayout active text-black" href="#" data-toggle="dropdown">
                                     Админ
                                 </a>
                                 <div class="dropdown-menu">
@@ -99,29 +78,37 @@
                             </li>
                         }
                     </ul>
-                    @if (User.Identity.IsAuthenticated)
-                    {
+
+                </div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div class="mr-sm-2">
                         <form method="post" asp-controller="Account" asp-action="Logout">
-                            <input class="btn btn-danger rounded" style="font-family:'Unbounded Light'; font-weight: bold; font-size:20px;" type="submit" value="Выход" />
+                            <input class="btn btn-outline-danger" type="submit" value="Выход" />
                         </form>
+                    </div>
+                    <div class="mr-sm-2">
+                        <form class="form-inline" action="@Url.Action("GetAllFurniture","Furniture")" method="get">
+                            <button class="btn btn-outline-success" type="submit">Показать всё</button>
+                        </form>
+                    </div>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <div class="mr-sm-2">
+                            <form class="form-inline" action="@Url.Action("Save","Furniture")" method="get">
+                                <button class="btn btn-outline-primary" type="submit">Добавить мебель</button>
+                            </form>
+                        </div>
                     }
-                </div>
-                <div class="mr-sm-1" style="width:362px">
-                    <form class="form-inline my-2 my-lg-0" action="@Url.Action("GetFurniture","Furniture")" method="get">
-                        <input class="form-control mr-sm-2 w-75" type="search" name="query" placeholder="Название, описание, цвет, цена" />
-                        <button class="btn btn-outline-info  my-2 my-sm-0" type="submit">Искать</button>
-                    </form>
-                </div>
-                <div class="mr-sm-2">
-                    <form class="form-inline" action="@Url.Action("GetAllFurniture","Furniture")" method="get">
-                        <button class="btn btn-outline-success" type="submit">Показать всё</button>
-                    </form>
-                </div>
-                <div class="mr-sm-2">
-                    <form class="form-inline" action="@Url.Action("Save","Furniture")" method="get">
-                        <button class="btn btn-outline-primary" type="submit">Добавить мебель</button>
-                    </form>
-                </div>
+                    <div class="mr-sm-2" style="width:362px">
+                        <form class="form-inline my-2 my-lg-0" action="@Url.Action("GetFurniture","Furniture")" method="get">
+                            <input class="form-control mr-sm-2 w-75" type="search" name="query" placeholder="Название, описание, цвет, цена" />
+                            
+                            <button class="btn btn-outline-info  my-2 my-sm-0" type="submit">Искать</button>
+                        </form>
+                    </div>
+                }
+                
                 <div class="mr-sm-2">
                     <span class="navbar-text ml-auto">
                         @{
