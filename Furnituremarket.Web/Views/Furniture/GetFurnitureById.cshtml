@@ -1,7 +1,7 @@
 ﻿@model Furniture
 
 @{
-    ViewBag.Title = "";
+    ViewBag.Title = "Выбранная мебель - ";
     Layout = "_Layout";
 }
 
@@ -30,27 +30,22 @@
                                 <button class="btn btn-outline-success" type="submit">Добавить в корзину</button>
                             </form>
                         </div>
-                        <div class="mr-sm-2">
-                            <form class="form-inline" action="@Url.Action("Save","Furniture")" method="get">
-                                <input type="hidden" name="id" value="@Model.Id" />
-                                <button class="btn btn-outline-primary" type="submit">Изменить</button>
-                            </form>
-                        </div>
-                        <div class="mr-sm-2">
-                            <form class="form-inline" action="@Url.Action("DeleteFurniture","Furniture")" method="get">
-                                <input type="hidden" name="id" value="@Model.Id" />
-                                <button class="btn btn btn-outline-danger" type="submit">Удалить</button>
-                            </form>
-                        </div>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <div class="mr-sm-2">
+                                <form class="form-inline" action="@Url.Action("Save","Furniture")" method="get">
+                                    <input type="hidden" name="id" value="@Model.Id" />
+                                    <button class="btn btn-outline-primary" type="submit">Изменить</button>
+                                </form>
+                            </div>
+                            <div class="mr-sm-2">
+                                <form class="form-inline" action="@Url.Action("DeleteFurniture","Furniture")" method="get">
+                                    <input type="hidden" name="id" value="@Model.Id" />
+                                    <button class="btn btn btn-outline-danger" type="submit">Удалить</button>
+                                </form>
+                            </div>
+                        }              
                     </div>
-
-
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <hr />
-                        <a asp-controller="Furniture" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Удалить</a>
-                        <a asp-controller="Furniture" asp-action="Save" asp-route-id="@Model.Id" class="btn btn-primary">Изменить</a>
-                    }
                 </div>
             </div>
         </div>

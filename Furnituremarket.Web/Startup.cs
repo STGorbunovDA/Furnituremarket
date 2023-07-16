@@ -1,8 +1,5 @@
 using Furnituremarket.DAL;
-using Furnituremarket.DAL.Interfaces;
-using Furnituremarket.DAL.Repositories;
-using Furnituremarket.Service.Implementations;
-using Furnituremarket.Service.Interfaces;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -37,8 +34,15 @@ namespace Furnituremarket.Web
             string connecntion = Configuration.GetConnectionString("DefaultConnection");
             services.Add(new ServiceDescriptor(typeof(ConnectionDataBase), new ConnectionDataBase(connecntion)));
 
-            services.AddScoped<IFurnitureRepository, FurnitureRepository>();
-            services.AddScoped<IFurnitureService, FurnitureService>();
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+                    options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+                });
+
+            services.InitializeRepositories();
+            services.InitializeServices();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,6 +63,7 @@ namespace Furnituremarket.Web
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseSession();

@@ -1,5 +1,6 @@
 ﻿using Furnituremarket.Domain.Model;
 using Furnituremarket.Service.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Threading.Tasks;
@@ -36,13 +37,15 @@ namespace Furnituremarket.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> GetFurniture(string query)
         {
+            if (query == null || string.IsNullOrWhiteSpace(query))
+                return RedirectToAction("GetAllFurniture");
             var response = await _furnitureService.GetFurniture(query);
             if (response.CodeStatus == Domain.Enum.StatusCode.OK)
                 return View("GetAllFurniture", response.Data);
             return RedirectToAction("Error");
         }
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<IActionResult> DeleteFurniture(int id)
         {
@@ -52,7 +55,7 @@ namespace Furnituremarket.Web.Controllers
             return RedirectToAction("Error");
         }
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Save(Furniture model)
         {
@@ -67,7 +70,7 @@ namespace Furnituremarket.Web.Controllers
 
         }
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<IActionResult> Save(int id)
         {
