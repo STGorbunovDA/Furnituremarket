@@ -37,6 +37,7 @@ namespace Furnituremarket.Web.Controllers
 
                     return RedirectToAction("Index", "Home");
                 }
+                else _logger.LogError($"[Register]: {response.Description}");
             }
             return View(model);
         }
@@ -50,14 +51,16 @@ namespace Furnituremarket.Web.Controllers
             if (ModelState.IsValid)
             {
                 var response = await _accountService.Login(model);
-                _logger.LogInformation(response.Description);
                 if (response.CodeStatus == Domain.Enum.StatusCode.OK)
                 {
+                    _logger.LogInformation(response.Description);
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                         new ClaimsPrincipal(response.Data));
 
                     return RedirectToAction("Index", "Home");
                 }
+                else _logger.LogError($"[Login]: {response.Description}");
+
             }
             return View(model);
         }

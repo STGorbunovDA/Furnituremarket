@@ -9,21 +9,16 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System;
-using Microsoft.Extensions.Logging;
-using NLog;
 
 namespace Furnituremarket.Service.Implementations
 {
     public class AccountService : IAccountService
     {
         private readonly IUserRepository _userRepository;
-        private ILogger<AccountService> _logger;
 
-        public AccountService(IUserRepository userRepository,
-            ILogger<AccountService> logger)
+        public AccountService(IUserRepository userRepository)
         {
             _userRepository = userRepository;
-            _logger = logger;
         }
 
         public async Task<BaseResponse<ClaimsIdentity>> Register(RegisterViewModel model)
@@ -31,7 +26,7 @@ namespace Furnituremarket.Service.Implementations
             try
             {
                 var user = await _userRepository.GetByName(model.Name);
-                
+
                 if (user.Name != null)
                 {
                     return new BaseResponse<ClaimsIdentity>()
@@ -50,7 +45,7 @@ namespace Furnituremarket.Service.Implementations
                 await _userRepository.Create(user);
                 var result = Authenticate(user);
 
-                 
+
                 return new BaseResponse<ClaimsIdentity>()
                 {
                     Data = result,
@@ -60,10 +55,9 @@ namespace Furnituremarket.Service.Implementations
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"[Register]: {ex.Message}");
                 return new BaseResponse<ClaimsIdentity>()
                 {
-                    Description = ex.Message,
+                    Description = " ||: " + ex + " ||: " + ex.Message,
                     CodeStatus = StatusCode.InternalServerError
                 };
             }
@@ -100,10 +94,9 @@ namespace Furnituremarket.Service.Implementations
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"[Login]: {ex.Message}");
                 return new BaseResponse<ClaimsIdentity>()
                 {
-                    Description = ex.Message,
+                    Description = " ||: " + ex + " ||: " + ex.Message,
                     CodeStatus = StatusCode.InternalServerError
                 };
             }
