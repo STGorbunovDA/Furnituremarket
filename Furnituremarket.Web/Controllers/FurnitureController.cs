@@ -48,8 +48,12 @@ namespace Furnituremarket.Web.Controllers
             var response = await _furnitureService.GetFurniture(query);
             if (response.CodeStatus == Domain.Enum.StatusCode.OK)
                 return View("GetAllFurniture", response.Data);
-            else _logger.LogError(response.Description);
-            return RedirectToAction("Error");
+            else
+            {
+                _logger.LogError(response.Description);
+                return View("GetAllFurniture", response.Data);
+            }
+            //return RedirectToAction("Error");
         }
 
         [Authorize(Roles = "Admin")]
