@@ -26,8 +26,11 @@ namespace Furnituremarket.Web.Controllers
             var response = await _furnitureService.GetAllFurniture();
             if (response.CodeStatus == Domain.Enum.StatusCode.OK)
                 return View("GetAllFurniture", response.Data.ToList());
-            else _logger.LogError(response.Description);
-            return RedirectToAction("Error");
+            else
+            {
+                _logger.LogError(response.Description);
+                return View("Error", response.Data);
+            }
         }
 
         [HttpGet]
@@ -36,8 +39,11 @@ namespace Furnituremarket.Web.Controllers
             var response = await _furnitureService.GetFurnitureById(id);
             if (response.CodeStatus == Domain.Enum.StatusCode.OK)
                 return View("GetFurnitureById", response.Data);
-            else _logger.LogError(response.Description);
-            return RedirectToAction("Error");
+            else
+            {
+                _logger.LogError(response.Description);
+                return RedirectToAction("GetAllFurniture");
+            }
         }
 
         [HttpGet]
@@ -46,10 +52,11 @@ namespace Furnituremarket.Web.Controllers
             if (query == null || string.IsNullOrWhiteSpace(query))
                 return RedirectToAction("GetAllFurniture");
             var response = await _furnitureService.GetFurniture(query);
-            if (response.CodeStatus == Domain.Enum.StatusCode.OK)
-                return View("GetAllFurniture", response.Data);
-            else _logger.LogError(response.Description);
-            return RedirectToAction("Error");
+            
+            if (response.CodeStatus != Domain.Enum.StatusCode.OK)
+                _logger.LogError(response.Description);
+
+            return View("GetAllFurniture", response.Data.ToList());
         }
 
         [Authorize(Roles = "Admin")]
@@ -57,10 +64,11 @@ namespace Furnituremarket.Web.Controllers
         public async Task<IActionResult> DeleteFurniture(int id)
         {
             var response = await _furnitureService.DeleteFurniture(id);
-            if (response.CodeStatus == Domain.Enum.StatusCode.OK)
-                return RedirectToAction("GetAllFurniture");
-            else _logger.LogError(response.Description);
-            return RedirectToAction("Error");
+            
+            if (response.CodeStatus != Domain.Enum.StatusCode.OK)
+                _logger.LogError(response.Description);
+
+            return RedirectToAction("GetAllFurniture");
         }
 
         [Authorize(Roles = "Admin")]
