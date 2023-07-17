@@ -29,7 +29,6 @@ namespace Furnituremarket.Web.Controllers
             if (ModelState.IsValid)
             {
                 var response = await _accountService.Register(model);
-                _logger.LogInformation(response.Description);
                 if (response.CodeStatus == Domain.Enum.StatusCode.OK)
                 {
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
@@ -37,6 +36,7 @@ namespace Furnituremarket.Web.Controllers
 
                     return RedirectToAction("Index", "Home");
                 }
+                else _logger.LogError(response.Description);
             }
             return View(model);
         }
@@ -50,7 +50,6 @@ namespace Furnituremarket.Web.Controllers
             if (ModelState.IsValid)
             {
                 var response = await _accountService.Login(model);
-                _logger.LogInformation(response.Description);
                 if (response.CodeStatus == Domain.Enum.StatusCode.OK)
                 {
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
@@ -58,6 +57,8 @@ namespace Furnituremarket.Web.Controllers
 
                     return RedirectToAction("Index", "Home");
                 }
+                else _logger.LogError(response.Description);
+
             }
             return View(model);
         }

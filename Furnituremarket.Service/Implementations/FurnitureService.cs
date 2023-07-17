@@ -21,28 +21,30 @@ namespace Furnituremarket.Service.Implementations
 
         public async Task<IBaseResponse<IEnumerable<Furniture>>> GetAllFurniture()
         {
-            var baseResponse = new BaseResponse<IEnumerable<Furniture>>();
-
             try
             {
                 var furnitureFull = await _furnitureRepository.Read();
 
                 if (furnitureFull.Count == 0)
                 {
-                    baseResponse.Description = $"Furniture not found";
-                    baseResponse.CodeStatus = StatusCode.FurnitureNotFound;
-                    return baseResponse;
+                    return new BaseResponse<IEnumerable<Furniture>>()
+                    {
+                        Description = $"Furniture not found",
+                        CodeStatus = StatusCode.FurnitureNotFound
+                    };
                 }
 
-                baseResponse.Data = furnitureFull;
-                baseResponse.CodeStatus = StatusCode.OK;
-                return baseResponse;
+                return new BaseResponse<IEnumerable<Furniture>>()
+                {
+                    Data = furnitureFull,
+                    CodeStatus = StatusCode.OK
+                };
             }
             catch (Exception ex)
             {
                 return new BaseResponse<IEnumerable<Furniture>>()
                 {
-                    Description = $"[GetAllFurniture] : {ex.Message}",
+                    Description = "[GetAllFurniture] ||: " + ex + " ||: " + ex.Message,
                     CodeStatus = StatusCode.InternalServerError
                 };
             }
@@ -50,31 +52,29 @@ namespace Furnituremarket.Service.Implementations
 
         public async Task<IBaseResponse<Furniture>> GetFurnitureById(int id)
         {
-            var baseResponse = new BaseResponse<Furniture>();
-
-            Furniture furniture = null;
-
             try
             {
-                if (id > 0)
-                    furniture = await _furnitureRepository.GetById(id);
+                var furniture = await _furnitureRepository.GetById(id);
 
-                if (furniture == null || furniture.Name == null)
+                if (furniture.Name == null)
                 {
-                    baseResponse.Description = $"Furniture not found";
-                    baseResponse.CodeStatus = StatusCode.FurnitureNotFound;
-                    return baseResponse;
+                    return new BaseResponse<Furniture>()
+                    {
+                        Description = $"Furniture not found",
+                        CodeStatus = StatusCode.FurnitureNotFound
+                    };
                 }
-
-                baseResponse.Data = furniture;
-                baseResponse.CodeStatus = StatusCode.OK;
-                return baseResponse;
+                return new BaseResponse<Furniture>()
+                {
+                    Data = furniture,
+                    CodeStatus = StatusCode.OK
+                };
             }
             catch (Exception ex)
             {
                 return new BaseResponse<Furniture>()
                 {
-                    Description = $"[GetFurniture] : {ex.Message}",
+                    Description = "[GetFurnitureById] ||: " + ex + " ||: " + ex.Message,
                     CodeStatus = StatusCode.InternalServerError
                 };
             }
@@ -82,31 +82,29 @@ namespace Furnituremarket.Service.Implementations
 
         public async Task<IBaseResponse<IEnumerable<Furniture>>> GetFurniture(string query)
         {
-            var baseResponse = new BaseResponse<IEnumerable<Furniture>>();
-
-            List<Furniture> furnitureList = null;
-
             try
             {
-                if (!string.IsNullOrWhiteSpace(query))
-                    furnitureList = await _furnitureRepository.GetByQuery(query);
+                var furnitureList = await _furnitureRepository.GetByQuery(query);
 
-                if (furnitureList == null)
+                if (furnitureList.Count == 0)
                 {
-                    baseResponse.Description = $"Furniture not found";
-                    baseResponse.CodeStatus = StatusCode.FurnitureNotFound;
-                    return baseResponse;
+                    return new BaseResponse<IEnumerable<Furniture>>()
+                    {
+                        Description = $"Furniture not found",
+                        CodeStatus = StatusCode.FurnitureNotFound
+                    };
                 }
-
-                baseResponse.Data = furnitureList;
-                baseResponse.CodeStatus = StatusCode.OK;
-                return baseResponse;
+                return new BaseResponse<IEnumerable<Furniture>>()
+                {
+                    Data = furnitureList,
+                    CodeStatus = StatusCode.OK
+                };
             }
             catch (Exception ex)
             {
                 return new BaseResponse<IEnumerable<Furniture>>()
                 {
-                    Description = $"[GetFurnitureByName] : {ex.Message}",
+                    Description = "[GetByQuery] ||: " + ex + " ||: " + ex.Message,
                     CodeStatus = StatusCode.InternalServerError
                 };
             }
@@ -115,8 +113,6 @@ namespace Furnituremarket.Service.Implementations
         public async Task<IBaseResponse<bool>> CreateFurniture(
             Furniture model)
         {
-            var baseResponse = new BaseResponse<bool>();
-
             try
             {
                 var furniture = new Furniture()
@@ -130,19 +126,26 @@ namespace Furnituremarket.Service.Implementations
                     Image = model.Image
                 };
 
-                baseResponse.Data = await _furnitureRepository.Create(furniture);
-
-                if (baseResponse.Data == true)
-                    baseResponse.CodeStatus = StatusCode.OK;
-                else baseResponse.CodeStatus = StatusCode.CreateNotFound;
-
-                return baseResponse;
+                if (await _furnitureRepository.Create(furniture))
+                {
+                    return new BaseResponse<bool>()
+                    {
+                        CodeStatus = StatusCode.OK
+                    };
+                }
+                else
+                {
+                    return new BaseResponse<bool>()
+                    {
+                        CodeStatus = StatusCode.CreateNotFound
+                    };
+                }
             }
             catch (Exception ex)
             {
                 return new BaseResponse<bool>()
                 {
-                    Description = $"[CreateFurniture] : {ex.Message}",
+                    Description = "[CreateFurniture] ||: " + ex + " ||: " + ex.Message,
                     CodeStatus = StatusCode.InternalServerError
                 };
             }
@@ -151,43 +154,51 @@ namespace Furnituremarket.Service.Implementations
         public async Task<IBaseResponse<bool>> UpdateFurniture(int id,
             Furniture model)
         {
-            var baseResponse = new BaseResponse<bool>();
-
-            Furniture furniture = null;
-
             try
             {
-                if (id > 0)
-                    furniture = await _furnitureRepository.GetById(id);
+                var furniture = await _furnitureRepository.GetById(id);
 
-                if (furniture == null || furniture.Name == null)
+                if (furniture.Name == null)
                 {
-                    baseResponse.Description = $"Furniture not found";
-                    baseResponse.CodeStatus = StatusCode.FurnitureNotFound;
-                    return baseResponse;
+                    return new BaseResponse<bool>()
+                    {
+                        Description = $"Furniture not found",
+                        CodeStatus = StatusCode.FurnitureNotFound
+                    };
                 }
 
-                furniture.Name = model.Name;
-                furniture.Description = model.Description;
-                furniture.Color = model.Color;
-                furniture.Material = model.Material;
-                furniture.Price = model.Price;
-                furniture.DateCreate = DateTime.Now;
-                furniture.Image = model.Image;
+                furniture = new Furniture()
+                {
+                    Id = id,
+                    Name = model.Name,
+                    Description = model.Description,
+                    Color = model.Color,
+                    Material = model.Material,
+                    Price = model.Price,
+                    DateCreate = DateTime.Now,
+                    Image = model.Image
+                };
 
-                baseResponse.Data = await _furnitureRepository.Update(furniture);
-
-                if (baseResponse.Data == true)
-                    baseResponse.CodeStatus = StatusCode.OK;
-                else baseResponse.CodeStatus = StatusCode.UpdateNotFound;
-
-                return baseResponse;
+                if (await _furnitureRepository.Update(furniture))
+                {
+                    return new BaseResponse<bool>()
+                    {
+                        CodeStatus = StatusCode.OK
+                    };
+                }
+                else
+                {
+                    return new BaseResponse<bool>()
+                    {
+                        CodeStatus = StatusCode.UpdateNotFound
+                    };
+                }
             }
             catch (Exception ex)
             {
                 return new BaseResponse<bool>()
                 {
-                    Description = $"[UpdateFurniture] : {ex.Message}",
+                    Description = "[UpdateFurniture] ||: " + ex + " ||: " + ex.Message,
                     CodeStatus = StatusCode.InternalServerError
                 };
             }
@@ -196,36 +207,39 @@ namespace Furnituremarket.Service.Implementations
 
         public async Task<IBaseResponse<bool>> DeleteFurniture(int id)
         {
-            var baseResponse = new BaseResponse<bool>();
-
-            Furniture furniture = null;
-
             try
             {
-                if (id > 0)
-                    furniture = await _furnitureRepository.GetById(id);
+                var furniture = await _furnitureRepository.GetById(id);
 
-                if (furniture == null)
+                if (furniture.Name == null)
                 {
-                    baseResponse.Description = $"Furniture not found";
-                    baseResponse.CodeStatus = StatusCode.FurnitureNotFound;
-                    return baseResponse;
+                    return new BaseResponse<bool>()
+                    {
+                        Description = $"Furniture not found",
+                        CodeStatus = StatusCode.FurnitureNotFound
+                    };
                 }
 
-                baseResponse.Data = await _furnitureRepository.Delete(furniture);
-
-                if (baseResponse.Data == true)
-                    baseResponse.CodeStatus = StatusCode.OK;
-                else baseResponse.CodeStatus = StatusCode.DeleteNotFound;
-
-                return baseResponse;
-
+                if (await _furnitureRepository.Delete(furniture))
+                {
+                    return new BaseResponse<bool>()
+                    {
+                        CodeStatus = StatusCode.OK
+                    };
+                }
+                else
+                {
+                    return new BaseResponse<bool>()
+                    {
+                        CodeStatus = StatusCode.DeleteNotFound
+                    };
+                }
             }
             catch (Exception ex)
             {
                 return new BaseResponse<bool>()
                 {
-                    Description = $"[DeleteFurniture] : {ex.Message}",
+                    Description = "[DeleteFurniture] ||: " + ex + " ||: " + ex.Message,
                     CodeStatus = StatusCode.InternalServerError
                 };
             }
