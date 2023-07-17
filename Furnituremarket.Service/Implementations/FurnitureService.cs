@@ -29,6 +29,7 @@ namespace Furnituremarket.Service.Implementations
                 {
                     return new BaseResponse<IEnumerable<Furniture>>()
                     {
+                        Data = furnitureFull,
                         Description = $"Furniture not found",
                         CodeStatus = StatusCode.FurnitureNotFound
                     };
