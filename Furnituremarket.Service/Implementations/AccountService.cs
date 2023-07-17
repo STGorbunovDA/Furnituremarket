@@ -57,7 +57,7 @@ namespace Furnituremarket.Service.Implementations
             {
                 return new BaseResponse<ClaimsIdentity>()
                 {
-                    Description = " ||: " + ex + " ||: " + ex.Message,
+                    Description = "[Register] ||: " + ex + " ||: " + ex.Message,
                     CodeStatus = StatusCode.InternalServerError
                 };
             }
@@ -96,7 +96,7 @@ namespace Furnituremarket.Service.Implementations
             {
                 return new BaseResponse<ClaimsIdentity>()
                 {
-                    Description = " ||: " + ex + " ||: " + ex.Message,
+                    Description = "[Login] ||: " + ex + " ||: " + ex.Message,
                     CodeStatus = StatusCode.InternalServerError
                 };
             }
