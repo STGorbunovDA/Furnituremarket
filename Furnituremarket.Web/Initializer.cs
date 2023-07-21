@@ -12,12 +12,14 @@ namespace Furnituremarket.Web
         {
             services.AddScoped<IFurnitureRepository, FurnitureRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
         }
 
         public static void InitializeServices(this IServiceCollection services)
         {
             services.AddScoped<IFurnitureService, FurnitureService>();
             services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IOrderService, OrderService>();
         }
     }
 }

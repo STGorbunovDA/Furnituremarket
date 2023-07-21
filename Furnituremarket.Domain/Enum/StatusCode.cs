@@ -2,8 +2,8 @@
 {
     public enum StatusCode
     {
-        FurnitureNotFound = 0,
-        CreateNotFound = 1,
+        NotFound = 0,
+        Uncreated = 1,
         DeleteNotFound = 2,
         UpdateNotFound = 3,
         OK = 200,

@@ -59,9 +59,8 @@ else
                                     <a asp-action="GetFurnitureById" asp-route-id="@furniture.Id" class="btn btn-outline-info">Подробно</a>
                                 </div>
                                 <div class="mr-sm-2">
-                                    <form action="@Url.Action("AddInCartFurniture","Cart")" method="post">
-                                        <input type="hidden" name="id" value="@furniture.Id" />
-                                        <input type="hidden" name="price" value="@furniture.Price" />
+                                    <form action="@Url.Action("AddCartFurniture","Cart")" method="post">
+                                        <input type="hidden" name="id" value="@furniture.Id"/>
                                         <button class="btn btn-outline-success" type="submit">Добавить в корзину</button>
                                     </form>
                                 </div>

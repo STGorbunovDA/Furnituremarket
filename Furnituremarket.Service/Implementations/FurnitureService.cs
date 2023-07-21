@@ -31,7 +31,7 @@ namespace Furnituremarket.Service.Implementations
                     {
                         Data = furnitureFull,
                         Description = $"Furniture not found",
-                        CodeStatus = StatusCode.FurnitureNotFound
+                        CodeStatus = StatusCode.NotFound
                     };
                 }
 
@@ -62,7 +62,7 @@ namespace Furnituremarket.Service.Implementations
                     return new BaseResponse<Furniture>()
                     {
                         Description = $"Furniture not found",
-                        CodeStatus = StatusCode.FurnitureNotFound
+                        CodeStatus = StatusCode.NotFound
                     };
                 }
                 return new BaseResponse<Furniture>()
@@ -93,7 +93,7 @@ namespace Furnituremarket.Service.Implementations
                     {
                         Data = furnitureList,
                         Description = $"Furniture not found",
-                        CodeStatus = StatusCode.FurnitureNotFound
+                        CodeStatus = StatusCode.NotFound
                     };
                 }
                 return new BaseResponse<IEnumerable<Furniture>>()
@@ -139,7 +139,7 @@ namespace Furnituremarket.Service.Implementations
                 {
                     return new BaseResponse<bool>()
                     {
-                        CodeStatus = StatusCode.CreateNotFound
+                        CodeStatus = StatusCode.Uncreated
                     };
                 }
             }
@@ -165,7 +165,7 @@ namespace Furnituremarket.Service.Implementations
                     return new BaseResponse<bool>()
                     {
                         Description = $"Furniture not found",
-                        CodeStatus = StatusCode.FurnitureNotFound
+                        CodeStatus = StatusCode.NotFound
                     };
                 }
 
@@ -218,7 +218,7 @@ namespace Furnituremarket.Service.Implementations
                     return new BaseResponse<bool>()
                     {
                         Description = $"Furniture not found",
-                        CodeStatus = StatusCode.FurnitureNotFound
+                        CodeStatus = StatusCode.NotFound
                     };
                 }
 

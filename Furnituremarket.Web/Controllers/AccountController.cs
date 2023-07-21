@@ -52,7 +52,8 @@ namespace Furnituremarket.Web.Controllers
                 var response = await _accountService.Login(model);
                 if (response.CodeStatus == Domain.Enum.StatusCode.OK)
                 {
-                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+                    await HttpContext.SignInAsync(
+                        CookieAuthenticationDefaults.AuthenticationScheme,
                         new ClaimsPrincipal(response.Data));
 
                     return RedirectToAction("Index", "Home");
