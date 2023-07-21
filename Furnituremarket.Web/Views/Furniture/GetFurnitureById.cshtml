@@ -24,7 +24,7 @@
                 <div class="card-body">
                     <div class="row justify-content-center align-items-center">
                         <div class="mr-sm-2">
-                            <form action="@Url.Action("AddInCartFurniture","Cart")" method="post">
+                            <form action="@Url.Action("AddCartFurniture","Cart")" method="post">
                                 <input type="hidden" name="id" value="@Model.Id" />
                                 <input type="hidden" name="price" value="@Model.Price" />
                                 <button class="btn btn-outline-success" type="submit">Добавить в корзину</button>
