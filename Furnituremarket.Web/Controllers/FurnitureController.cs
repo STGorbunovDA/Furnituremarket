@@ -73,7 +73,7 @@ namespace Furnituremarket.Web.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public async Task<IActionResult> Save(Furniture model)
+        public async Task<IActionResult> SaveFurniture(Furniture model)
         {
             if (ModelState.IsValid)
             {
@@ -94,7 +94,7 @@ namespace Furnituremarket.Web.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpGet]
-        public async Task<IActionResult> Save(int id)
+        public async Task<IActionResult> SaveFurniture(int id)
         {
             if (id == 0)
                 return View(new Furniture());
