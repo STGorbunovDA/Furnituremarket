@@ -24,10 +24,6 @@ namespace Furnituremarket.Domain.Model
             get { return _items.Sum(item => item.Count * item.Price); }
         }
 
-        //public Order()
-        //{
-
-        //}
         public Order(int id, IEnumerable<OrderItem> items)
         {
             if (items == null)
@@ -35,7 +31,8 @@ namespace Furnituremarket.Domain.Model
             Id = id;
             _items = new List<OrderItem>(items);
         }
-        public void AddItem(Furniture furniture, int count)
+
+        public void AddItemFurniture(Furniture furniture, int count)
         {
             if(furniture == null)
                 throw new ArgumentNullException(nameof(furniture));

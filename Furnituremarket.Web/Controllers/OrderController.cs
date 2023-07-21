@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace Furnituremarket.Web.Controllers
 {
-    public class CartController : Controller
+    public class OrderController : Controller
     {
         private readonly IOrderService _orderService;
         private readonly IFurnitureService _furnitureService;
         private ILogger<AccountService> _logger;
-        public CartController(IOrderService cartService,
+        public OrderController(IOrderService cartService,
                               IFurnitureService furnitureService,
                               ILogger<AccountService> logger)
         {
@@ -23,8 +23,8 @@ namespace Furnituremarket.Web.Controllers
             _logger = logger;
         }
 
-        
-        public async Task<IActionResult> AddCartFurniture(int id)
+        [HttpPost]
+        public async Task<IActionResult> AddOrder(int id)
         {
             CartViewModel cartViewModel;
             Order order;
@@ -61,7 +61,7 @@ namespace Furnituremarket.Web.Controllers
             }
 
 
-            order.AddItem((Furniture)furnitureResponse.Data, 1);
+            order.AddItemFurniture((Furniture)furnitureResponse.Data, 1);
 
             //orderRepository.Update(order);
 
