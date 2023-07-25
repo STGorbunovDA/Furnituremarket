@@ -1,0 +1,75 @@
+﻿@model List<OrderItem>
+
+@{
+    ViewBag.Title = "Корзина - ";
+    Layout = "_Layout";
+}
+
+@{
+    var cardStyle = "col-md-12";
+    if (Model != null)
+    {
+        switch (Model.Count)
+        {
+            case 2:
+                cardStyle = "col-md-6";
+                break;
+            case 3:
+                cardStyle = "col-md-4";
+                break;
+        }
+    }
+}
+@if (Model == null || Model.Count == 0)
+{
+    <div style="padding:40px;"></div>
+    <div class="card col-md-12">
+        <div class="row g-0">
+            <div class="col-md-12">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Список заказов пуст :(</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="row">
+        @foreach (var furniture in Model)
+        {
+            <div class="row row-cols-1 @cardStyle text-center">
+                <div class="col" style="padding: 10px;">
+                    <div class="card">
+                        <img src="@furniture.Image" class="card-img-top" alt="@furniture.Name">
+                        <div class="card-body">
+                            <h5 class="card-title">@furniture.Name</h5>
+                            <p class="card-text">@furniture.Description</p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Цвет: @furniture.Color</li>
+                            <li class="list-group-item">Материал: @furniture.Material</li>
+                            <li class="list-group-item">Стоимость: @furniture.Price ₽</li>
+                            <li class="list-group-item">Количество: @furniture.Count шт.</li>
+                        </ul>
+                        <div class="card-body">
+                            <div class="row justify-content-center align-items-center">
+                                <div class="mr-sm-2">
+                                    <a asp-controller="Furniture" asp-action="GetFurnitureById" asp-route-id="@furniture.FurnitureId" class="btn btn-outline-info">Подробно</a>
+                                </div>
+                                <div class="mr-sm-2">
+                                    <a asp-controller="Order" asp-action="Delete" asp-route-id="@furniture.FurnitureId" class="btn btn btn-outline-danger">Удалить из корзины</a>
+                                </div>
+                            </div>
+
+                            @*<button class="btn btn-primary" onclick="openModal({ url: '/Basket/GetItem', data: '@item.Id' })"
+                    data-toggle="ajax-modal" data-target="Modal">
+                    Открыть
+                    </button>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

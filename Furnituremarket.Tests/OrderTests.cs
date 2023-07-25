@@ -31,8 +31,8 @@ namespace Furnituremarket.Tests
         {
             var order = new Order(1, new[]
             {
-                new OrderItem(1,3,10m),
-                new OrderItem(2,5,100m)
+                new OrderItem(1,"","","","","",3,10m),
+                new OrderItem(2,"","","","","",5,100m)
             });
 
             Assert.Equal(3 + 5, order.TotalCount);
@@ -43,8 +43,8 @@ namespace Furnituremarket.Tests
         {
             var order = new Order(1, new[]
             {
-                new OrderItem(1, 3, 10m),
-                new OrderItem(2, 5, 100m)
+                new OrderItem(1,"","","","","", 3, 10m),
+                new OrderItem(2,"","","","","", 5, 100m)
             });
 
             Assert.Equal(3 * 10m + 5 * 100m, order.TotalPrice);

@@ -40,11 +40,16 @@ namespace Furnituremarket.Domain.Model
             var item = _items.SingleOrDefault(x => x.FurnitureId == furniture.Id);
 
             if (item == null)
-                _items.Add(new OrderItem(furniture.Id, count, furniture.Price));
+                _items.Add(new OrderItem(furniture.Id, 
+                    furniture.Name,furniture.Description, 
+                    furniture.Color,furniture.Material, furniture.Image, count, 
+                    furniture.Price));
             else
             {
                 _items.Remove(item);
-                _items.Add(new OrderItem(furniture.Id, item.Count + count, furniture.Price));
+                _items.Add(new OrderItem(furniture.Id, furniture.Name, furniture.Description,
+                    furniture.Color, furniture.Material, furniture.Image, 
+                    item.Count + count, furniture.Price));
             }
         }
     }
