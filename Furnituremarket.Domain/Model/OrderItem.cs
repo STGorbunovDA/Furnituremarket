@@ -10,8 +10,8 @@ namespace Furnituremarket.Domain.Model
         public string Color { get; set; }
         public string Material { get; set; }
         public string Image { get; set; }
-        public int Count { get; }
-        public decimal Price { get; }
+        public int Count { get; set; }
+        public decimal Price { get; set; }
 
         public OrderItem(int furnitureId, string name, 
             string description, string color, string material, string image, int count, decimal price)

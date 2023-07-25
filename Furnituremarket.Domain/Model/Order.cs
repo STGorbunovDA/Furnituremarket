@@ -32,6 +32,19 @@ namespace Furnituremarket.Domain.Model
             _items = new List<OrderItem>(items);
         }
 
+        public void DeleteItemFurniture(Furniture furniture, int count)
+        {
+            if (furniture == null)
+                throw new ArgumentNullException(nameof(furniture));
+            var item = _items.SingleOrDefault(x => x.FurnitureId == furniture.Id);
+            if (item == null)
+                throw new ArgumentNullException(nameof(furniture));
+
+            if (count > 1)
+                item.Count = item.Count - 1;
+            else _items.Remove(item);
+        }
+
         public void AddItemFurniture(Furniture furniture, int count)
         {
             if(furniture == null)
