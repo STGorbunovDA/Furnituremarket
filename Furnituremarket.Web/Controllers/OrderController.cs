@@ -24,14 +24,14 @@ namespace Furnituremarket.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Detail()
+        public async Task<IActionResult> DetailOrder()
         {
             IBaseResponse<Order> response = null;
 
             if (HttpContext.Session.TryGetCart(out OrderViewModel orderViewModel))
             {
                 response = await _orderService.GetByIdOrder(orderViewModel.OrderId);
-                
+
                 if (response.CodeStatus != Domain.Enum.StatusCode.OK)
                 {
                     _logger.LogError(response.Description);
@@ -44,7 +44,7 @@ namespace Furnituremarket.Web.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> AddOrder(int id)
+        public async Task<IActionResult> ChangeOrder(int id, int flag)
         {
             OrderViewModel orderViewModel;
             Order order;
@@ -76,21 +76,36 @@ namespace Furnituremarket.Web.Controllers
 
             var furnitureResponse = await _furnitureService.GetFurnitureById(id);
 
-            if (response.CodeStatus != Domain.Enum.StatusCode.OK)
+            if (furnitureResponse.CodeStatus != Domain.Enum.StatusCode.OK)
             {
-                _logger.LogError(response.Description);
+                _logger.LogError(furnitureResponse.Description);
                 return RedirectToAction("Error");
             }
 
 
-            order.AddItemFurniture((Furniture)furnitureResponse.Data, 1);
+            if (flag == 1)
+                order.AddItemFurniture((Furniture)furnitureResponse.Data, 1);
+            else if (flag == -1)
+            {
+                foreach (var item in order.Items)
+                {
+                    if (item.FurnitureId == id)
+                    {
+                        order.DeleteItemFurniture((Furniture)furnitureResponse.Data, item.Count);
+                        break;
+                    }
 
+                }
+            }
             //orderRepository.Update(order);
 
             orderViewModel.TotalCount = order.TotalCount;
             orderViewModel.TotalPrice = order.TotalPrice;
 
             HttpContext.Session.Set(orderViewModel);
+
+            if (flag == -1 && order.Items.Count > 0)
+                return RedirectToAction("DetailOrder", "Order", new { id });
 
             return RedirectToAction("GetAllFurniture", "Furniture", new { id });
         }

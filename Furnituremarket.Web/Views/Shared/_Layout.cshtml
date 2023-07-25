@@ -113,7 +113,7 @@
                             @{
                                 if (Context.Session.TryGetCart(out OrderViewModel cart) && cart.TotalCount > 0)
                                 {
-                                    <a href="@Url.Action("Detail","Order")">Товаров @cart.TotalCount на сумму @cart.TotalPrice</a>
+                                    <a href="@Url.Action("DetailOrder","Order")">Товаров @cart.TotalCount на сумму @cart.TotalPrice</a>
                                 }
                                 else
                                 {

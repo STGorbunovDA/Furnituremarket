@@ -58,7 +58,11 @@ else
                                     <a asp-controller="Furniture" asp-action="GetFurnitureById" asp-route-id="@furniture.FurnitureId" class="btn btn-outline-info">Подробно</a>
                                 </div>
                                 <div class="mr-sm-2">
-                                    <a asp-controller="Order" asp-action="Delete" asp-route-id="@furniture.FurnitureId" class="btn btn btn-outline-danger">Удалить из корзины</a>
+                                    <form action="@Url.Action("ChangeOrder","Order")" method="post">
+                                        <input type="hidden" name="id" value="@furniture.FurnitureId" />
+                                        <input type="hidden" name="flag" value="@RequiredСonstants.DELETE_ORDERS_CONST" />
+                                        <button class="btn btn-outline-success" type="submit">Удалить из корзины</button>
+                                    </form>
                                 </div>
                             </div>
 
