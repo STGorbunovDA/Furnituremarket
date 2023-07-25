@@ -1,4 +1,4 @@
-﻿using Furnituremarket.Domain.ViewModels.Cart;
+﻿using Furnituremarket.Domain.ViewModels.Order;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using System.Text;
@@ -8,7 +8,7 @@ namespace Furnituremarket.Web
     public static class SessionExtensions
     {
         private const string key = "Cart";
-        public static void Set(this ISession session, CartViewModel value) 
+        public static void Set(this ISession session, OrderViewModel value) 
         {
             if (value == null)
                 return;
@@ -24,7 +24,7 @@ namespace Furnituremarket.Web
             }
         }
 
-        public static bool TryGetCart(this ISession session, out CartViewModel value) 
+        public static bool TryGetCart(this ISession session, out OrderViewModel value) 
         {
             if(session.TryGetValue(key, out byte[] buffer))
             {
@@ -35,7 +35,7 @@ namespace Furnituremarket.Web
                     var totalCount = reader.ReadInt32();
                     var totalPrice = reader.ReadDecimal();
 
-                    value = new CartViewModel(orderId)
+                    value = new OrderViewModel(orderId)
                     {
                         TotalCount = totalCount,
                         TotalPrice = totalPrice

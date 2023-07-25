@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace Furnituremarket.Domain.ViewModels.Cart
+namespace Furnituremarket.Domain.ViewModels.Order
 {
-    public class CartViewModel
+    public class OrderViewModel
     {
         public int OrderId { get; }
 
@@ -10,7 +10,7 @@ namespace Furnituremarket.Domain.ViewModels.Cart
 
         public decimal TotalPrice { get; set; }
 
-        public CartViewModel(int orderId) 
+        public OrderViewModel(int orderId)
         {
             OrderId = orderId;
             TotalCount = 0;

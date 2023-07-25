@@ -1,6 +1,6 @@
 ﻿using Furnituremarket.Domain.Model;
 using Furnituremarket.Domain.Response.Interfaces;
-using Furnituremarket.Domain.ViewModels.Cart;
+using Furnituremarket.Domain.ViewModels.Order;
 using Furnituremarket.Service.Implementations;
 using Furnituremarket.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -23,18 +23,39 @@ namespace Furnituremarket.Web.Controllers
             _logger = logger;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Detail()
+        {
+            IBaseResponse<Order> response = null;
+
+            if (HttpContext.Session.TryGetCart(out OrderViewModel orderViewModel))
+            {
+                response = await _orderService.GetByIdOrder(orderViewModel.OrderId);
+                
+                if (response.CodeStatus != Domain.Enum.StatusCode.OK)
+                {
+                    _logger.LogError(response.Description);
+                    return RedirectToAction("Error");
+                }
+            }
+
+            return View("Detail", response.Data.Items);
+        }
+
+
         [HttpPost]
         public async Task<IActionResult> AddOrder(int id)
         {
-            CartViewModel cartViewModel;
+            OrderViewModel orderViewModel;
             Order order;
             IBaseResponse<Order> response;
 
-            if (!HttpContext.Session.TryGetCart(out cartViewModel))
+
+            if (!HttpContext.Session.TryGetCart(out orderViewModel))
             {
                 response = await _orderService.CreateOrder();
                 if (response.CodeStatus == Domain.Enum.StatusCode.OK)
-                    cartViewModel = new CartViewModel(((Order)response.Data).Id);
+                    orderViewModel = new OrderViewModel(((Order)response.Data).Id);
                 else
                 {
                     _logger.LogError(response.Description);
@@ -43,7 +64,7 @@ namespace Furnituremarket.Web.Controllers
             }
             else
             {
-                response = await _orderService.GetByIdOrder(cartViewModel.OrderId);
+                response = await _orderService.GetByIdOrder(orderViewModel.OrderId);
                 if (response.CodeStatus != Domain.Enum.StatusCode.OK)
                 {
                     _logger.LogError(response.Description);
@@ -54,6 +75,7 @@ namespace Furnituremarket.Web.Controllers
             order = (Order)response.Data;
 
             var furnitureResponse = await _furnitureService.GetFurnitureById(id);
+
             if (response.CodeStatus != Domain.Enum.StatusCode.OK)
             {
                 _logger.LogError(response.Description);
@@ -65,10 +87,10 @@ namespace Furnituremarket.Web.Controllers
 
             //orderRepository.Update(order);
 
-            cartViewModel.TotalCount = order.TotalCount;
-            cartViewModel.TotalPrice = order.TotalPrice;
+            orderViewModel.TotalCount = order.TotalCount;
+            orderViewModel.TotalPrice = order.TotalPrice;
 
-            HttpContext.Session.Set(cartViewModel);
+            HttpContext.Session.Set(orderViewModel);
 
             return RedirectToAction("GetAllFurniture", "Furniture", new { id });
         }

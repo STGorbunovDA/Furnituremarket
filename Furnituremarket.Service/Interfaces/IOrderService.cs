@@ -1,6 +1,5 @@
 ﻿using Furnituremarket.Domain.Model;
 using Furnituremarket.Domain.Response.Interfaces;
-using Furnituremarket.Domain.ViewModels.Cart;
 using System.Threading.Tasks;
 
 namespace Furnituremarket.Service.Interfaces

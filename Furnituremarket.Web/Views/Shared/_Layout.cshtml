@@ -1,4 +1,5 @@
-﻿@using Furnituremarket.Domain.ViewModels.Cart;
+﻿@using Furnituremarket.Domain.ViewModels.Order;
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -110,9 +111,9 @@
                     <div class="mr-sm-2">
                         <span class="navbar-text ml-auto">
                             @{
-                                if (Context.Session.TryGetCart(out CartViewModel cart) && cart.TotalCount > 0)
+                                if (Context.Session.TryGetCart(out OrderViewModel cart) && cart.TotalCount > 0)
                                 {
-                                    <a href="">Товаров @cart.TotalCount на сумму @cart.TotalPrice</a>
+                                    <a href="@Url.Action("Detail","Order")">Товаров @cart.TotalCount на сумму @cart.TotalPrice</a>
                                 }
                                 else
                                 {
