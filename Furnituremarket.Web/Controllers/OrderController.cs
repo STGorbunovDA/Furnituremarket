@@ -1,4 +1,5 @@
-﻿using Furnituremarket.Domain.Model;
+﻿using Furnituremarket.Domain.Constants;
+using Furnituremarket.Domain.Model;
 using Furnituremarket.Domain.Response.Interfaces;
 using Furnituremarket.Domain.ViewModels.Order;
 using Furnituremarket.Service.Implementations;
@@ -39,7 +40,7 @@ namespace Furnituremarket.Web.Controllers
                 }
             }
 
-            return View("Detail", response.Data.Items);
+            return View("Detail", response.Data);
         }
 
 
@@ -83,18 +84,18 @@ namespace Furnituremarket.Web.Controllers
             }
 
 
-            if (flag == 1)
-                order.AddItemFurniture((Furniture)furnitureResponse.Data, 1);
-            else if (flag == -1)
+            if (flag == RequiredСonstants.ADD_ITEM_ORDERS_CONST)
+                order.AddOrUpdateItemFurniture((Furniture)furnitureResponse.Data, 
+                    RequiredСonstants.ADD_ITEM_ORDERS_CONST);
+            else if (flag == RequiredСonstants.DELETE_ITEM_ORDERS_CONST)
             {
                 foreach (var item in order.Items)
                 {
                     if (item.FurnitureId == id)
                     {
-                        order.DeleteItemFurniture((Furniture)furnitureResponse.Data, item.Count);
+                        order.RemoveItemFurniture((Furniture)furnitureResponse.Data);
                         break;
                     }
-
                 }
             }
             //orderRepository.Update(order);
@@ -104,7 +105,7 @@ namespace Furnituremarket.Web.Controllers
 
             HttpContext.Session.Set(orderViewModel);
 
-            if (flag == -1 && order.Items.Count > 0)
+            if (flag == RequiredСonstants.DELETE_ITEM_ORDERS_CONST && order.Items.Count > 0)
                 return RedirectToAction("DetailOrder", "Order", new { id });
 
             return RedirectToAction("GetAllFurniture", "Furniture", new { id });
