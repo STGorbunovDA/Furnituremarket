@@ -85,7 +85,7 @@ namespace Furnituremarket.Web.Controllers
 
 
             if (flag == RequiredСonstants.ADD_ITEM_ORDERS_CONST)
-                order.AddOrUpdateItemFurniture((Furniture)furnitureResponse.Data, 
+                order.AddOrUpdateFurniture((Furniture)furnitureResponse.Data, 
                     RequiredСonstants.ADD_ITEM_ORDERS_CONST);
             else if (flag == RequiredСonstants.DELETE_ITEM_ORDERS_CONST)
             {
@@ -93,7 +93,7 @@ namespace Furnituremarket.Web.Controllers
                 {
                     if (item.FurnitureId == id)
                     {
-                        order.RemoveItemFurniture((Furniture)furnitureResponse.Data);
+                        order.RemoveFurniture((Furniture)furnitureResponse.Data);
                         break;
                     }
                 }
