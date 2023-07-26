@@ -1,26 +1,11 @@
-﻿@model List<OrderItem>
+﻿@model Order
 
 @{
     ViewBag.Title = "Корзина - ";
     Layout = "_Layout";
 }
 
-@{
-    var cardStyle = "col-md-12";
-    if (Model != null)
-    {
-        switch (Model.Count)
-        {
-            case 2:
-                cardStyle = "col-md-6";
-                break;
-            case 3:
-                cardStyle = "col-md-4";
-                break;
-        }
-    }
-}
-@if (Model == null || Model.Count == 0)
+@if (Model == null || Model.Items.Count == 0)
 {
     <div style="padding:40px;"></div>
     <div class="card col-md-12">
@@ -35,8 +20,62 @@
 }
 else
 {
-    <div class="row">
-        @foreach (var furniture in Model)
+    <h1>Корзина</h1>
+    <div class="card">
+        <table class="table table-sm table-striped">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col" class="text-center">№</th>
+                    <th scope="col" class="text-center">Название</th>
+                    <th scope="col" class="text-center">Материал</th>
+                    <th scope="col" class="text-center">Цвет</th>
+                    <th scope="col" class="text-center">Количество</th>
+                    <th scope="col" class="text-center">Цена</th>
+                    <th scope="col" class="text-center"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int count = 1;
+                }
+                @foreach (var furniture in Model.Items)
+                {
+                    <tr>
+                        <td class="text-center">@(count++)</td>
+                        <td class="text-center">@furniture.Name</td>
+                        <td class="text-center">@furniture.Material</td>
+                        <td class="text-center">@furniture.Color</td>
+                        <td class="text-center">@furniture.Count</td>
+                        <td class="text-center">@furniture.Price</td>
+                        <td style="width:400px">
+                            <div class="row justify-content-center align-items-center">
+                                <div class="mr-sm-2">
+                                    <a asp-controller="Furniture" asp-action="GetFurnitureById" asp-route-id="@furniture.FurnitureId" class="btn btn-outline-info">Подробно</a>
+                                </div>
+                                <div class="mr-sm-2">
+                                    <form action="@Url.Action("ChangeOrder","Order")" method="post">
+                                        <input type="hidden" name="id" value="@furniture.FurnitureId" />
+                                        <input type="hidden" name="flag" value="@RequiredСonstants.DELETE_ITEM_ORDERS_CONST" />
+                                        <button class="btn btn btn-outline-danger" type="submit">Удалить из корзины</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="4" class="text-right font-weight-bold">Итого</td>
+                    <td class="text-center font-weight-bold">@Model.TotalCount</td>
+                    <td class="text-center font-weight-bold">@Model.TotalPrice</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    @* <div class="row">
+        @foreach (var furniture in Model.Items)
         {
             <div class="row row-cols-1 @cardStyle text-center">
                 <div class="col" style="padding: 10px;">
@@ -65,15 +104,10 @@ else
                                     </form>
                                 </div>
                             </div>
-
-                            @*<button class="btn btn-primary" onclick="openModal({ url: '/Basket/GetItem', data: '@item.Id' })"
-                    data-toggle="ajax-modal" data-target="Modal">
-                    Открыть
-                    </button>*@
                         </div>
                     </div>
                 </div>
             </div>
         }
-    </div>
+    </div>*@
 }
