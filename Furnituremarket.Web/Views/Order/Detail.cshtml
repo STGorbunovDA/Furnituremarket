@@ -48,13 +48,21 @@ else
                         <td class="text-center">
                             <div class="row justify-content-center align-items-center">
                                 <div class="mr-sm-2">
-                                    <a asp-controller="Furniture" asp-action="GetFurnitureById" asp-route-id="@furniture.FurnitureId" class="btn btn-outline-info">+</a>
+                                    <form action="@Url.Action("ChangeOrder","Order")" method="post">
+                                        <input type="hidden" name="id" value="@furniture.FurnitureId" />
+                                        <input type="hidden" name="flag" value="@RequiredСonstants.ADD_ITEM_ORDERS_CONST" />
+                                        <button class="btn btn-outline-info" type="submit">+</button>
+                                    </form>
                                 </div>
                                 <div class="mr-sm-2">
                                     @furniture.Count
                                 </div>
                                 <div class="mr-sm-2">
-                                    <a asp-controller="Furniture" asp-action="GetFurnitureById" asp-route-id="@furniture.FurnitureId" class="btn btn-outline-danger">-</a>
+                                    <form action="@Url.Action("ChangeOrder","Order")" method="post">
+                                        <input type="hidden" name="id" value="@furniture.FurnitureId" />
+                                        <input type="hidden" name="flag" value="@RequiredСonstants.DELETE_ITEM_ORDERS_CONST" />
+                                        <button class="btn btn-outline-danger" type="submit">-</button>
+                                    </form>
                                 </div>
                             </div>
                            
@@ -68,7 +76,7 @@ else
                                 <div class="mr-sm-2">
                                     <form action="@Url.Action("ChangeOrder","Order")" method="post">
                                         <input type="hidden" name="id" value="@furniture.FurnitureId" />
-                                        <input type="hidden" name="flag" value="@RequiredСonstants.DELETE_ITEM_ORDERS_CONST" />
+                                        <input type="hidden" name="flag" value="@RequiredСonstants.DELETE_ORDERS_CONST" />
                                         <button class="btn btn-outline-danger" type="submit">Удалить из корзины</button>
                                     </form>
                                 </div>

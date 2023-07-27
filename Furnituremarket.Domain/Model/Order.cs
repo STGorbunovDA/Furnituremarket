@@ -91,7 +91,7 @@ namespace Furnituremarket.Domain.Model
             if (item == null)
                 throw new ArgumentNullException(nameof(furniture));
             if (count > 1)
-                item.Count = item.Count++;
+                item.Count = item.Count + 1;
         }
 
 
@@ -106,7 +106,7 @@ namespace Furnituremarket.Domain.Model
                 throw new ArgumentNullException(nameof(furniture));
 
             if (count > 1)
-                item.Count = item.Count--;
+                item.Count = item.Count - 1;
 
             else _items.Remove(item);
         }
