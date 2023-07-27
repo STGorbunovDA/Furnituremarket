@@ -53,7 +53,7 @@ namespace Furnituremarket.Tests
         public void GetItemFurniture_WithExistingItem_ReturnsItem()
         {
             var order = new Order(1, new[]
-           {
+            {
                 new OrderItem(1,"","","","","", 3, 10m),
                 new OrderItem(2,"","","","","", 5, 100m)
             });

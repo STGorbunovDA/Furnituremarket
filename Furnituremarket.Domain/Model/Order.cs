@@ -35,7 +35,7 @@ namespace Furnituremarket.Domain.Model
             return _items[index];
         }
 
-        public void AddOrUpdateItemFurniture(Furniture furniture, int count)
+        public void AddOrUpdateFurniture(Furniture furniture, int count)
         {
             if (furniture == null)
                 throw new ArgumentNullException(nameof(furniture));
@@ -70,17 +70,48 @@ namespace Furnituremarket.Domain.Model
             #endregion
         }
 
-        public void RemoveItemFurniture(Furniture furniture)
+        public void RemoveFurniture(Furniture furniture)
         {
             if (furniture == null)
                 throw new ArgumentNullException(nameof(furniture));
             int index = _items.FindIndex(item => item.FurnitureId == furniture.Id);
-
-            if(index == -1)
+            if (index == -1)
                 ThrowFurnitureException("Order does not contain specified item.", furniture);
 
             else _items.RemoveAt(index);
         }
+
+        public void AddItemFurniture(Furniture furniture, int count)
+        {
+            if (furniture == null)
+                throw new ArgumentNullException(nameof(furniture));
+
+            var item = _items.SingleOrDefault(x => x.FurnitureId == furniture.Id);
+
+            if (item == null)
+                throw new ArgumentNullException(nameof(furniture));
+            if (count > 1)
+                item.Count = item.Count + 1;
+        }
+
+
+        public void RemoveItemFurniture(Furniture furniture, int count)
+        {
+            if (furniture == null)
+                throw new ArgumentNullException(nameof(furniture));
+
+            var item = _items.SingleOrDefault(x => x.FurnitureId == furniture.Id);
+
+            if (item == null)
+                throw new ArgumentNullException(nameof(furniture));
+
+            if (count > 1)
+                item.Count = item.Count - 1;
+
+            else _items.Remove(item);
+        }
+
+       
 
 
         private void ThrowFurnitureException(string message, Furniture furniture) 

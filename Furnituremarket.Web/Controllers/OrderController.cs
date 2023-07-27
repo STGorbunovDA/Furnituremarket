@@ -84,16 +84,41 @@ namespace Furnituremarket.Web.Controllers
             }
 
 
-            if (flag == RequiredСonstants.ADD_ITEM_ORDERS_CONST)
-                order.AddOrUpdateItemFurniture((Furniture)furnitureResponse.Data, 
-                    RequiredСonstants.ADD_ITEM_ORDERS_CONST);
+            if (flag == RequiredСonstants.ADD_ORDERS_CONST)
+                order.AddOrUpdateFurniture((Furniture)furnitureResponse.Data, 
+                    RequiredСonstants.ADD_ORDERS_CONST);
+
+            else if (flag == RequiredСonstants.DELETE_ORDERS_CONST)
+            {
+                foreach (var item in order.Items)
+                {
+                    if (item.FurnitureId == id)
+                    {
+                        order.RemoveFurniture((Furniture)furnitureResponse.Data);
+                        break;
+                    }
+                }
+            }
             else if (flag == RequiredСonstants.DELETE_ITEM_ORDERS_CONST)
             {
                 foreach (var item in order.Items)
                 {
                     if (item.FurnitureId == id)
                     {
-                        order.RemoveItemFurniture((Furniture)furnitureResponse.Data);
+                        order.RemoveItemFurniture(
+                            (Furniture)furnitureResponse.Data, item.Count);
+                        break;
+                    }
+                }
+            }
+            else if (flag == RequiredСonstants.ADD_ITEM_ORDERS_CONST)
+            {
+                foreach (var item in order.Items)
+                {
+                    if (item.FurnitureId == id)
+                    {
+                        order.AddItemFurniture(
+                            (Furniture)furnitureResponse.Data, item.Count);
                         break;
                     }
                 }
@@ -104,8 +129,15 @@ namespace Furnituremarket.Web.Controllers
             orderViewModel.TotalPrice = order.TotalPrice;
 
             HttpContext.Session.Set(orderViewModel);
+          
 
-            if (flag == RequiredСonstants.DELETE_ITEM_ORDERS_CONST && order.Items.Count > 0)
+            if (flag == RequiredСonstants.DELETE_ORDERS_CONST && order.Items.Count > 0)
+                return RedirectToAction("DetailOrder", "Order", new { id });
+
+            else if (flag == RequiredСonstants.DELETE_ITEM_ORDERS_CONST && order.Items.Count > 0)
+                return RedirectToAction("DetailOrder", "Order", new { id });
+            
+            else if (flag == RequiredСonstants.ADD_ITEM_ORDERS_CONST && order.Items.Count > 0)
                 return RedirectToAction("DetailOrder", "Order", new { id });
 
             return RedirectToAction("GetAllFurniture", "Furniture", new { id });
